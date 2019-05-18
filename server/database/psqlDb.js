@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-// Connect to db
+// Connect db
 const pool = new Pool({
   user: 'kzbujefd',
   host: 'isilo.db.elephantsql.com',

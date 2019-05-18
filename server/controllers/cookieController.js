@@ -6,7 +6,7 @@ cookieController.setCookie = (req, res, next) => {
 }
 
 cookieController.checkCookie = (req, res, next) => {
-  const { userId } = req.cookies.userId;
+  // const { userId } = req.cookies.userId;
 }
 
 module.exports = cookieController;

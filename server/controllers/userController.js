@@ -7,7 +7,6 @@ userController.verifyUser = (req, res, next) => {
   if (!username || !password) return res.json({ authenticated: false });
 
   const userQuery = `SELECT * FROM users where username='${username}' AND password='${password}'`;
-  // query our database with the input 
   pool
     .query(userQuery)
     .then(user => {

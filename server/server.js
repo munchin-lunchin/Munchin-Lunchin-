@@ -6,11 +6,11 @@ const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
 
 const app = express();
-const homeURL = path.join(__dirname, '../public/index.html'); // EDIT URL PATH FOR LOGIN PAGE.
+const homeURL = path.join(__dirname, '../public/index.html'); 
 
-app.use(bodyParser.urlencoded({ extended: true })); // allows us to use req.body
+app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
-app.use(cookieParser()); // allows us to read req.cookies (dont need it for res.cookie)
+app.use(cookieParser()); 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -22,7 +22,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use('/dist', express.static(path.join(__dirname, '../dist')));
   app.get('/', (req, res) => res.sendFile(homeURL));
 }
-
 
 // // Login Page - get request
 app.get('/redirect', (req, res) => {
