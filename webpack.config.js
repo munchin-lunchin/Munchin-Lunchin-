@@ -24,7 +24,7 @@ module.exports = {
     compress: true,
     port: 8080,
     proxy: {
-      '/messages': 'http://localhost:3000',
+      '/home': 'http://localhost:3000',
     }
   },
   output: {
