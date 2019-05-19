@@ -9,7 +9,6 @@ function joesFrontEndCookieParser (str) {
 }
 
 const isAuthenticated = () => {
-  return true;
   const cookiesStr = document.cookie;
   const cookiesObj = joesFrontEndCookieParser(cookiesStr);
   if (cookiesObj.userId) return cookiesObj.userId;
