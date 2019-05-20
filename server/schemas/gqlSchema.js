@@ -182,6 +182,8 @@ const Mutation = new GraphQLObjectType({
         rest_id: { type: GraphQLInt }
       },
       resolve(parent, { user_id, rest_id }) {
+        console.log('userID is', user_id);
+        console.log('rest_id is', rest_id);
         let like;
         return pool
           .query(`SELECT * FROM likes WHERE user_id = ${user_id} AND rest_id = ${rest_id}`)

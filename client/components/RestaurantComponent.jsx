@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RestaurantComponent ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation }) {
+function RestaurantComponent ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation, getLikesQuery, userId }) {
  return (
   <div>
     <strong>Name: </strong>{name}
@@ -12,7 +12,17 @@ function RestaurantComponent ({ _id, name, rating, displayAddress, price, review
     <strong>Price: </strong>{price}
     <br/>
     <strong>Address: </strong>{displayAddress}
-    <button onClick={() => deleteLikeMutation(1, _id)}>Delete</button>
+    <button onClick={() => {
+      console.log('Getlikesquery is', getLikesQuery);
+      deleteLikeMutation({
+        variables: {
+          user_id: parseInt(userId),
+          rest_id: parseInt(_id)
+        },
+        refetchQueries: [{ query: getLikesQuery }]
+      });
+    }
+    }>Delete</button>
   </div>
  )
 }
