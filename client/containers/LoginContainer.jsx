@@ -1,7 +1,11 @@
 // URL for fetch req hardcoded in!
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
+import isAuthenticated from "./../services/authenticate";
 
 function LoginContainer () {
+  const [redirect, setRedirect] = useState(false);
+
   return (
     <div>
       <input id='username' placeholder='Username' className='loginInputs' />
@@ -17,6 +21,11 @@ function LoginContainer () {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data)
+        }).then(resp => resp.json()
+        ).then(res2 => {
+          console.log(res2)
+          // if (res2.authenticated) return <Redirect to="/main" />;
+          if (isAuthenticated()) return <Redirect to="/main" />
         })
           .catch(error => console.error('Error:', error));
       }}> Login! </button>
