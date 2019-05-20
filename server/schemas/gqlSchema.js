@@ -4,7 +4,8 @@ const {
   GraphQLInt,
   GraphQLID, // GraphQLID is only descriptive. It's actually just type GraphQLString
   GraphQLList,
-  GraphQLSchema
+  GraphQLSchema,
+  GraphQLFloat
 } = require('graphql');
 
 const pool = require('../database/psqlDb.js');
@@ -65,7 +66,7 @@ const RestaurantType = new GraphQLObjectType({
   name: 'Restaurant',
   fields: () => ({
     _id: { type: GraphQLID },
-    rating: { type: GraphQLInt },
+    rating: { type: GraphQLFloat },
     reviewCount: { type: GraphQLInt },
     yelpID: { type: GraphQLString },
     name: { type: GraphQLString },
@@ -73,8 +74,8 @@ const RestaurantType = new GraphQLObjectType({
     imageURL: { type: GraphQLString },
     url: { type: GraphQLString },
     price: { type: GraphQLString },
-    latitude: { type: GraphQLInt },
-    longitude: { type: GraphQLInt },
+    latitude: { type: GraphQLFloat },
+    longitude: { type: GraphQLFloat },
     users: {
       type: new GraphQLList(UserType),
       resolve(parent, args) { 

@@ -4,10 +4,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
-<<<<<<< HEAD
-// const fetch = require('node-fetch');
-=======
->>>>>>> dev
 const { searchYelp } = require('./controllers/yelpController');
 
 const app = express();
