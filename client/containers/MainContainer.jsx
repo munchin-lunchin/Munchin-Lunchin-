@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React, { Component } from 'react';
-
-function MainContainer () {
-  return (
-    <div>
-      Main Container
-    </div>
-  )
-}
-
-export default MainContainer;
-=======
 import React from 'react';
 import SearchContainer from './SearchContainer';
 import HistoryContainer from './HistoryContainer';
@@ -24,4 +11,3 @@ const MainContainer = () => (
 );
 
 export default MainContainer;
->>>>>>> dev

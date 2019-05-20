@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import LoginContainer from './LoginContainer'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import MainContainer from './MainContainer'
-=======
 import LoginContainer from './LoginContainer';
 import MainContainer from './MainContainer';
 import HeaderComponent from './../components/HeaderComponent';
@@ -16,7 +11,6 @@ import { ApolloProvider } from 'react-apollo'
 const client = new ApolloClient ({
   uri: 'http://localhost:3000/graphql'
 })
->>>>>>> dev
 
 
 class App extends Component {
@@ -26,14 +20,6 @@ class App extends Component {
 
   render () {
     return (
-<<<<<<< HEAD
-      <Router>
-        <div>
-          <Route path="/" exact component={LoginContainer} />
-          <Route path="/main" component={MainContainer} />
-        </div>
-      </Router>
-=======
       //Apollo wrapper injects data from the server into the application
       <ApolloProvider client={client}>
         <div>
@@ -51,7 +37,6 @@ class App extends Component {
           </Router>
         </div>
       </ApolloProvider>
->>>>>>> dev
     );
   }
 }

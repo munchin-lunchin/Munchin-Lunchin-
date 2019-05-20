@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost'
-import { graphql, Query } from 'react-apollo'
+import { graphql, Query, compose } from 'react-apollo'
 import RestaurantComponent from '../components/RestaurantComponent'
 import React, { useState, useEffect } from 'react';
 
@@ -20,20 +20,20 @@ const getLikesQuery = gql`
     }
   }
 }
-`
+`;
 
 
 
-const HistoryContainer = ({ data }) => {
+const HistoryContainer = ({ getLikesQuery }) => {
   // const [restaurantHistory, setRestaurantHistory] = useState([]);
 
   //no idea why this function runs a second time once data has loaded and why use effect is not needed
   const restaurantMapping = () => {
-    if (data.loading) {
+    if (getLikesQuery.loading) {
       return <div>Loading</div> 
     } else {
-      console.log(data);
-      return data.user.restaurants.map((rest) => (
+      console.log(getLikesQuery);
+      return getLikesQuery.user.restaurants.map((rest) => (
         <RestaurantComponent {...rest} key={rest._id}/>
         ))
     }
@@ -48,6 +48,8 @@ const HistoryContainer = ({ data }) => {
 };
 
 
-//binds our query to the current container by adding the output to props.data.  
+//binds our query to the current container by adding the output to props.  The name property we assign determines the key in props  
 //It's like redux when you use connect on map state to props and map dispatch to props
-export default graphql(getLikesQuery)(HistoryContainer);
+export default compose(
+  graphql(getLikesQuery, {name:"getLikesQuery"}))
+  (HistoryContainer);
