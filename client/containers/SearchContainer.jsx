@@ -21,16 +21,17 @@ const SearchContainer = () => {
       });
   };
 
-  function likeRestaurant () {
+  function likeRestaurant (data) {
+    console.log('yo data here:', data);
     fetch('http://localhost:3000/likes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(props.data)
-    }).then(resp => resp.json()
-    ).then(res2 => {
+      body: JSON.stringify(data)
+    }).then(resp => {
       console.log('We have received a response from the server about liking a restaurant:');
-      console.log(res2);
-      if (res2.status === 200) setRestaurantList([]);
+      console.log(resp);
+      if (resp.status === 200) setRestaurantList([]);
+      else console.log('There was an error!');
     })
       .catch(err => console.error(err));
   };
@@ -38,7 +39,7 @@ const SearchContainer = () => {
   const searchResultComponents = [];
   console.log(restaurantList)
   for (const restaurant of restaurantList) {
-    searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant} />)
+    searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
   };
 
   return (

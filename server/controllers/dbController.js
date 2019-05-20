@@ -3,9 +3,10 @@ const pool = require('../database/psqlDb.js');
 const dbController = {};
 
 dbController.addRestaurant = (req, res, next) => {
-  const { id, name, rating, image_url, review_count, url, price } = req.body.businesses[0];
-  const { latitude, longitude } = req.body.businesses[0].coordinates;
-  const { display_address } = req.body.businesses[0].location;
+  // console.log('reqbody', req.body);
+  const { id, name, rating, image_url, review_count, url, price } = req.body;
+  const { latitude, longitude } = req.body.coordinates;
+  const { display_address } = req.body.location;
   const displayAddress = display_address.join(" ");
 
   //create query string
