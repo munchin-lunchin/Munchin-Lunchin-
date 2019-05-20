@@ -3,7 +3,7 @@ import LoginContainer from './LoginContainer';
 import MainContainer from './MainContainer';
 import HeaderComponent from './../components/HeaderComponent';
 import { HashRouter as Router, Route, Redirect } from "react-router-dom";
-import isAuthenticated from "./../services/authenticate";
+import { isAuthenticated } from "./../services/authenticate";
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo'
 
