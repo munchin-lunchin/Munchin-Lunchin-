@@ -27,7 +27,6 @@ function LoginContainer () {
           if (res2.authenticated) {
             console.log('The server authenticated the user!');
             setRedirect(res2.authenticated);
-            // return <Redirect to="/main" />
           } else {
             console.log('User not authenticated.')
           }
