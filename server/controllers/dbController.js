@@ -12,10 +12,13 @@ dbController.searchForRestaurant = (req, res, next) => {
       if (result.rows.length) {
         res.locals.rest_id = result.rows[0]._id
       }
-      res.locals.rest_id ? console.log('found restaurant in db') : console.log('did not find restaurant in db');
+      res.locals.rest_id ?
+        console.log('found restaurant in db - do not need to add to restaurant table') :
+        console.log('did not find restaurant in db - adding to restaurant table');
       return next();
     })
     .catch(err => {
+      console.log(err)
       console.log('ERROR');
       res.status(400).send();
     });
@@ -47,20 +50,22 @@ dbController.addRestaurant = (req, res, next) => {
 
 dbController.addToLikeTable = (req, res) => {
   console.log('add to the like table now!')
-  res.status(200).send(req.body);
+
+  const userID = req.cookies.userId;
+  //hard code userID
+  // const userID = 3;
+  const restID = res.locals.rest_id;
+
+  const addLike = `INSERT INTO likes (user_id, rest_id) VALUES (${userID}, ${restID})`
+
+  pool.query(addLike)
+    .then(result => {
+      console.log(`successfully added to likes table`);
+      res.send(req.body);
+    })
+    .catch(err => res.status(400).send(err));
 }
 
-
-
-// pool.query(add)
-// .then(result => {
-//   console.log('successfully added to database');
-//   res.status(200).send(req.body);
-// })
-// .catch(err => {
-//   if (err.routine = '_bt_check_unique') return res.status(200).send(req.body);
-//   else return 
-// })
 
 
 
