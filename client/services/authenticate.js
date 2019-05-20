@@ -11,7 +11,7 @@ function joesFrontEndCookieParser (str) {
 const isAuthenticated = () => {
   const cookiesStr = document.cookie;
   const cookiesObj = joesFrontEndCookieParser(cookiesStr);
-  if (cookiesObj.userId) return cookiesObj.userId;
+  if (cookiesObj.userId) return true;
   return false;
 }
 
