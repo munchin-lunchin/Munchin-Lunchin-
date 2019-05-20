@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
 const { searchYelp } = require('./controllers/yelpController');
-const { addRestaurant } = require('./controllers/dbController');
+const { addRestaurant, addToLikeTable, searchForRestaurant } = require('./controllers/dbController');
 
 const app = express();
 const homeURL = path.join(__dirname, '../public/index.html');
@@ -14,15 +14,15 @@ const homeURL = path.join(__dirname, '../public/index.html');
  Express-GraphQL module allows Express to understand GraphQL. Provides simple way to create
  an Express server to run the GraphQL API. Used as middleware on a single route.
  This route will be an endpoint to interact with GraphQL data ('supercharged' endpoint to handle queries)
- */ 
-const graphqlHTTP = require('express-graphql'); 
+ */
+const graphqlHTTP = require('express-graphql');
 const schema = require('./schemas/gqlSchema.js')
 app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
 }));
 
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use((req, res, next) => {
@@ -44,10 +44,10 @@ app.get('/redirect', (req, res) => {
 });
 
 //route to yelp API
-app.get('/yelp', searchYelp);
+app.get('/yelp/restaurantName/:name/restaurantZip/:zip', searchYelp);
 
 //route to add liked restaurant
-app.post('/likes', addRestaurant);
+app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
 
 app.post('/login', verifyUser, setCookie);
 
