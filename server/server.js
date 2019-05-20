@@ -4,9 +4,22 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
+// const fetch = require('node-fetch');
 
 const app = express();
 const homeURL = path.join(__dirname, '../public/index.html'); 
+
+/* 
+ Express-GraphQL module allows Express to understand GraphQL. Provides simple way to create
+ an Express server to run the GraphQL API. Used as middleware on a single route.
+ This route will be an endpoint to interact with GraphQL data ('supercharged' endpoint to handle queries)
+ */ 
+const graphqlHTTP = require('express-graphql'); 
+const schema = require('./schemas/gqlSchema.js')
+app.use('/graphql', graphqlHTTP({
+  schema,
+  graphiql: true
+}));
 
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
@@ -30,5 +43,14 @@ app.get('/redirect', (req, res) => {
 });
 
 app.post('/login', verifyUser, setCookie);
+
+// app.get('/test', (req, res) => { 
+//   fetch('https://api.github.com/users/github')
+//     .then(response => response.json())
+//     .then(json => {
+//       console.log(json);
+//       res.status(200).send('HelloOoooo!!');
+//     });
+// });
 
 app.listen(3000, () => 'Listening on port 3000');
