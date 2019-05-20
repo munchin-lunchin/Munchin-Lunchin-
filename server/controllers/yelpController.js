@@ -3,6 +3,7 @@ const APIKey = 'PgeEZ_bVQ2ocvaCg89ZRCmcdPxLdsPcQWawYBYJhuD4X1ScfCkqpMNAdVHo1w4Ts
 const client = yelp.client(APIKey);
 
 
+<<<<<<< HEAD
 /** 
  * MVP:
  * When client searches for list of restaurants, server just queries the data and returns/displays
@@ -42,6 +43,8 @@ client
   .catch(e => {
     console.log(e);
   });
+=======
+>>>>>>> dev
 const yelpController = {};
 
 yelpController.searchYelp = (req, res) => {

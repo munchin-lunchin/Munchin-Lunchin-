@@ -4,7 +4,10 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
+<<<<<<< HEAD
 // const fetch = require('node-fetch');
+=======
+>>>>>>> dev
 const { searchYelp } = require('./controllers/yelpController');
 
 const app = express();
@@ -47,14 +50,5 @@ app.get('/redirect', (req, res) => {
 app.get('/yelp', searchYelp);
 
 app.post('/login', verifyUser, setCookie);
-
-// app.get('/test', (req, res) => { 
-//   fetch('https://api.github.com/users/github')
-//     .then(response => response.json())
-//     .then(json => {
-//       console.log(json);
-//       res.status(200).send('HelloOoooo!!');
-//     });
-// });
 
 app.listen(3000, () => 'Listening on port 3000');
