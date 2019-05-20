@@ -31,18 +31,19 @@ const deleteLikeMutation = gql`
   }
 `;
 
-const HistoryContainer = ({ getLikesQuery, deleteLikeMutation }) => {
+const HistoryContainer = (props) => {
   // const [restaurantHistory, setRestaurantHistory] = useState([]);
-
+  const getLikes = props.getLikesQuery;
+  const deleteLikeMutation = props.deleteLikeMutation;
   //no idea why this function runs a second time once data has loaded and why use effect is not needed
   const restaurantMapping = () => {
-    if (getLikesQuery.loading) {
+    if (getLikes.loading) {
       return <div>Loading</div> 
     } else {
-      console.log(getLikesQuery);
-      return getLikesQuery.user.restaurants.map((rest) => (
-        <RestaurantComponent {...rest} deleteLikeMutation={deleteLikeMutation} key={rest._id}/>
-        ))
+      console.log(getLikes);
+      return getLikes.user.restaurants.map((rest) => (
+        <RestaurantComponent {...rest} deleteLikeMutation={deleteLikeMutation} getLikesQuery={getLikesQuery} key={rest._id}/>
+      ));
     }
   }
 
