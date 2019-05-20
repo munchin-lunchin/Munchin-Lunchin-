@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Redirect } from "react-router-dom";
 // import isAuthenticated from "./../services/authenticate";
 
-function LoginContainer () {
+function LoginContainer() {
   const [redirect, setRedirect] = useState(false);
 
   return (
