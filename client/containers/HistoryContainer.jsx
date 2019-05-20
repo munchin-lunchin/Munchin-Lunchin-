@@ -2,12 +2,16 @@ import { gql } from 'apollo-boost'
 import { graphql, Query } from 'react-apollo'
 import RestaurantComponent from '../components/RestaurantComponent'
 import React, { useState, useEffect } from 'react';
+import { joesFrontEndCookieParser } from './../services/authenticate';
 
 
 //Graphql query for restaurants our user has liked previously.
+const myCookies = joesFrontEndCookieParser(document.cookie);
+const myUserId = myCookies.userId;
+console.log(myCookies);
 const getLikesQuery = gql`
 {
-  user(_id: 1) {
+  user(_id: ${myUserId}) {
     username
     restaurants {
       name
@@ -30,20 +34,20 @@ const HistoryContainer = ({ data }) => {
   //no idea why this function runs a second time once data has loaded and why use effect is not needed
   const restaurantMapping = () => {
     if (data.loading) {
-      return <div>Loading</div> 
+      return <div>Loading</div>
     } else {
       console.log(data);
       return data.user.restaurants.map((rest) => (
-        <RestaurantComponent {...rest} key={rest._id}/>
-        ))
+        <RestaurantComponent {...rest} key={rest._id} />
+      ))
     }
   }
 
   return (
-      <div>
-        <h2> a history container is here! </h2>
-        {restaurantMapping()}
-      </div> 
+    <div>
+      <h2> a history container is here! </h2>
+      {restaurantMapping()}
+    </div>
   )
 };
 
