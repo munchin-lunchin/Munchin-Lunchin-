@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import LoginContainer from './LoginContainer'
+import LoginContainer from './LoginContainer';
+import MainContainer from './MainContainer';
+import HeaderComponent from './../components/HeaderComponent';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import isAuthenticated from "./../services/authenticate";
+
 
 class App extends Component {
   constructor(props) {
@@ -9,12 +14,22 @@ class App extends Component {
   render () {
     return (
       <div>
-        Hello World!
-        <LoginContainer />
+        <Router>
+          <HeaderComponent />
+          <Route
+            path="/main"
+            render={() => (
+              isAuthenticated() ?
+                (<MainContainer />) :
+                (<Redirect to="/" />)
+            )} />
+          <Route exact path='/' component={LoginContainer} />
+
+        </Router>
       </div>
     );
   }
-
 }
+
 
 export default App;
