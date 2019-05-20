@@ -43,15 +43,15 @@ const HistoryContainer = (props) => {
   //no idea why this function runs a second time once data has loaded and why use effect is not needed
   const restaurantMapping = () => {
     if (getLikes.loading) {
-      return <div>Loading</div> 
+      return <div>Loading</div>
     } else {
       console.log(getLikes);
       return getLikes.user.restaurants.map((rest) => (
-        <RestaurantComponent 
-          {...rest} 
-          deleteLikeMutation={deleteLikeMutation} 
+        <RestaurantComponent
+          {...rest}
+          deleteLikeMutation={deleteLikeMutation}
           getLikesQuery={getLikesQuery}
-          userId={myUserId} 
+          userId={myUserId}
           key={rest._id}
         />
       ));
@@ -59,7 +59,7 @@ const HistoryContainer = (props) => {
   }
 
   return (
-    <div>
+    <div id="History Container">
       <h2> Restaurants You've Liked! </h2>
       {restaurantMapping()}
     </div>
@@ -70,6 +70,6 @@ const HistoryContainer = (props) => {
 //binds our query to the current container by adding the output to props.  The name property we assign determines the key in props  
 //It's like redux when you use connect on map state to props and map dispatch to props
 export default compose(
-  graphql(getLikesQuery, { name:"getLikesQuery" }),
+  graphql(getLikesQuery, { name: "getLikesQuery" }),
   graphql(deleteLikeMutation, { name: "deleteLikeMutation" }))
   (HistoryContainer);
