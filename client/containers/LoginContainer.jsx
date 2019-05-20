@@ -7,7 +7,7 @@ function LoginContainer() {
   const [redirect, setRedirect] = useState(false);
 
   return (
-    <div>
+    <div id="loginContainer">
       <input id='username' placeholder='Username' className='loginInputs' />
       <input id='password' placeholder='Password' className='loginInputs' />
       <button id='login' onClick={() => {
