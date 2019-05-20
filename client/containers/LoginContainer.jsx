@@ -1,5 +1,5 @@
 // URL for fetch req hardcoded in!
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from "react-router-dom";
 import isAuthenticated from "./../services/authenticate";
 
@@ -23,12 +23,17 @@ function LoginContainer () {
           body: JSON.stringify(data)
         }).then(resp => resp.json()
         ).then(res2 => {
-          console.log(res2)
-          // if (res2.authenticated) return <Redirect to="/main" />;
-          if (isAuthenticated()) return <Redirect to="/main" />
+          console.log(res2);
+          console.log('linebefore"')
+          if (res2.authenticated) {
+            console.log('sinde!');
+            setRedirect(res2.authenticated);
+            // return <Redirect to="/main" />
+          }
         })
           .catch(error => console.error('Error:', error));
       }}> Login! </button>
+      {redirect && <Redirect to='/main' />}
     </div>
   )
 }
