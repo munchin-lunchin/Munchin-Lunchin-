@@ -1,10 +1,9 @@
 import React from 'react';
 
 
-function RestaurantComponent ({ name, rating, displayAddress, price, reviewCount }) {
+function RestaurantComponent ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation }) {
  return (
   <div>
-
     <strong>Name: </strong>{name}
     <br/>
     <strong>Rating: </strong>{rating}
@@ -14,6 +13,7 @@ function RestaurantComponent ({ name, rating, displayAddress, price, reviewCount
     <strong>Price: </strong>{price}
     <br/>
     <strong>Address: </strong>{displayAddress}
+    <button onClick={() => deleteLikeMutation(1, _id)}>Delete</button>
   </div>
  )
 }

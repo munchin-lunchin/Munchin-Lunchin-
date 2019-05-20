@@ -22,9 +22,16 @@ const getLikesQuery = gql`
 }
 `;
 
+const deleteLikeMutation = gql`
+  mutation ($user_id: Int!, $rest_id: Int!) {
+    deleteLike(user_id: $user_id, rest_id: $rest_id) {
+      user_id
+      rest_id
+    }
+  }
+`;
 
-
-const HistoryContainer = ({ getLikesQuery }) => {
+const HistoryContainer = ({ getLikesQuery, deleteLikeMutation }) => {
   // const [restaurantHistory, setRestaurantHistory] = useState([]);
 
   //no idea why this function runs a second time once data has loaded and why use effect is not needed
@@ -34,7 +41,7 @@ const HistoryContainer = ({ getLikesQuery }) => {
     } else {
       console.log(getLikesQuery);
       return getLikesQuery.user.restaurants.map((rest) => (
-        <RestaurantComponent {...rest} key={rest._id}/>
+        <RestaurantComponent {...rest} deleteLikeMutation={deleteLikeMutation} key={rest._id}/>
         ))
     }
   }
@@ -51,5 +58,6 @@ const HistoryContainer = ({ getLikesQuery }) => {
 //binds our query to the current container by adding the output to props.  The name property we assign determines the key in props  
 //It's like redux when you use connect on map state to props and map dispatch to props
 export default compose(
-  graphql(getLikesQuery, {name:"getLikesQuery"}))
+  graphql(getLikesQuery, { name:"getLikesQuery" }),
+  graphql(deleteLikeMutation, { name: "deleteLikeMutation" }))
   (HistoryContainer);
