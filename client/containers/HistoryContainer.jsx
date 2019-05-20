@@ -59,7 +59,7 @@ const HistoryContainer = (props) => {
   }
 
   return (
-    <div id="History Container">
+    <div>
       <h2> Restaurants You've Liked! </h2>
       {restaurantMapping()}
     </div>

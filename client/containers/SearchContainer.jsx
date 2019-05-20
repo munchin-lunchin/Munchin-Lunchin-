@@ -32,7 +32,7 @@ const SearchContainer = () => {
       console.log(resp);
       if (resp.status === 200) setRestaurantList([]);
       else console.log('There was an error!');
-    })
+    }).then(() => location.reload())
       .catch(err => console.error(err));
   };
 
