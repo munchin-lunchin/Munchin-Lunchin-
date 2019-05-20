@@ -44,7 +44,7 @@ app.get('/redirect', (req, res) => {
 });
 
 //route to yelp API
-app.get('/yelp', searchYelp);
+app.get('/yelp/restaurantName/:name/restaurantZip/:zip', searchYelp);
 
 //route to add liked restaurant
 app.post('/likes', addRestaurant);
