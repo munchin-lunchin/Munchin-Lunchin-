@@ -47,7 +47,13 @@ const HistoryContainer = (props) => {
     } else {
       console.log(getLikes);
       return getLikes.user.restaurants.map((rest) => (
-        <RestaurantComponent {...rest} deleteLikeMutation={deleteLikeMutation} getLikesQuery={getLikesQuery} key={rest._id}/>
+        <RestaurantComponent 
+          {...rest} 
+          deleteLikeMutation={deleteLikeMutation} 
+          getLikesQuery={getLikesQuery}
+          userId={myUserId} 
+          key={rest._id}
+        />
       ));
     }
   }

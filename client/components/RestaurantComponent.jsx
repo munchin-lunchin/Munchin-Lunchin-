@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RestaurantComponent ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation, getLikesQuery }) {
+function RestaurantComponent ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation, getLikesQuery, userId }) {
  return (
   <div>
     <strong>Name: </strong>{name}
@@ -16,7 +16,7 @@ function RestaurantComponent ({ _id, name, rating, displayAddress, price, review
       console.log('Getlikesquery is', getLikesQuery);
       deleteLikeMutation({
         variables: {
-          user_id: 1,
+          user_id: parseInt(userId),
           rest_id: parseInt(_id)
         },
         refetchQueries: [{ query: getLikesQuery }]
