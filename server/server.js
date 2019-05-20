@@ -4,10 +4,10 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
-// const fetch = require('node-fetch');
+const { searchYelp } = require('./controllers/yelpController');
 
 const app = express();
-const homeURL = path.join(__dirname, '../public/index.html'); 
+const homeURL = path.join(__dirname, '../public/index.html');
 
 /* 
  Express-GraphQL module allows Express to understand GraphQL. Provides simple way to create
@@ -23,7 +23,7 @@ app.use('/graphql', graphqlHTTP({
 
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
-app.use(cookieParser()); 
+app.use(cookieParser());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -42,15 +42,9 @@ app.get('/redirect', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'test.html'));
 });
 
-app.post('/login', verifyUser, setCookie);
+//route to yelp API
+app.get('/yelp', searchYelp);
 
-// app.get('/test', (req, res) => { 
-//   fetch('https://api.github.com/users/github')
-//     .then(response => response.json())
-//     .then(json => {
-//       console.log(json);
-//       res.status(200).send('HelloOoooo!!');
-//     });
-// });
+app.post('/login', verifyUser, setCookie);
 
 app.listen(3000, () => 'Listening on port 3000');
