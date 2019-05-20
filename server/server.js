@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
 const { searchYelp } = require('./controllers/yelpController');
+const { addRestaurant } = require('./controllers/dbController');
 
 const app = express();
 const homeURL = path.join(__dirname, '../public/index.html');
@@ -32,6 +33,9 @@ app.get('/redirect', (req, res) => {
 
 //route to yelp API
 app.get('/yelp', searchYelp);
+
+//route to add liked restaurant
+app.post('/likes', addRestaurant);
 
 app.post('/login', verifyUser, setCookie);
 
