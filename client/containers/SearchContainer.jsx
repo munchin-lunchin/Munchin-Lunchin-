@@ -19,21 +19,37 @@ const SearchContainer = () => {
       ).then(res2 => {
         setRestaurantList(res2);
       });
-  }
+  };
+
+  function likeRestaurant () {
+    fetch('http://localhost:3000/likes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(props.data)
+    }).then(resp => resp.json()
+    ).then(res2 => {
+      console.log('We have received a response from the server about liking a restaurant:');
+      console.log(res2);
+      if (res2.status === 200) setRestaurantList([]);
+    })
+      .catch(err => console.error(err));
+  };
 
   const searchResultComponents = [];
   console.log(restaurantList)
   for (const restaurant of restaurantList) {
-    searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} />)
-  }
+    searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant} />)
+  };
 
-  return (<div>
-    <h1> THIS IS A SEARCH CONTAINER YO</h1>
-    Restaurant Name: <input id="whereYouAteYoFoodsInput"></input>
-    Zipcode: <input id="zipcodeOfWhereYouEatYoFoodsInput"></input>
-    <button id="yelpSearchButton" onClick={queryYelpAPI}> Search for restaurants </button>
-    {searchResultComponents}
-  </div>)
+  return (
+    <div>
+      <h1> THIS IS A SEARCH CONTAINER YO</h1>
+      Restaurant Name: <input id="whereYouAteYoFoodsInput"></input>
+      Zipcode: <input id="zipcodeOfWhereYouEatYoFoodsInput"></input>
+      <button id="yelpSearchButton" onClick={queryYelpAPI}> Search for restaurants </button>
+      {searchResultComponents}
+    </div>
+  );
 };
 
 export default SearchContainer;
