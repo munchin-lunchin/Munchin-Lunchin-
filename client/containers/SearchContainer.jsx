@@ -44,11 +44,14 @@ const SearchContainer = () => {
 
   return (
     <div>
-      <h1> THIS IS A SEARCH CONTAINER YO</h1>
+      <h1> Search</h1>
       Restaurant Name: <input id="whereYouAteYoFoodsInput"></input>
       Zipcode: <input id="zipcodeOfWhereYouEatYoFoodsInput"></input>
       <button id="yelpSearchButton" onClick={queryYelpAPI}> Search for restaurants </button>
-      {searchResultComponents}
+      <div id="searchContainer">
+        {searchResultComponents}
+      </div>
+
     </div>
   );
 };

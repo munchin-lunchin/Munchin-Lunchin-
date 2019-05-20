@@ -44,8 +44,8 @@ const HistoryContainer = ({ data }) => {
   }
 
   return (
-    <div>
-      <h2> a history container is here! </h2>
+    <div id="History Container">
+      <h2> History Container </h2>
       {restaurantMapping()}
     </div>
   )
