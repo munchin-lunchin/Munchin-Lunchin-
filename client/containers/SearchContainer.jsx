@@ -21,7 +21,7 @@ const SearchContainer = () => {
       });
   };
 
-  function likeRestaurant (data) {
+  function likeRestaurant(data) {
     console.log('yo data here:', data);
     fetch('http://localhost:3000/likes', {
       method: 'POST',
