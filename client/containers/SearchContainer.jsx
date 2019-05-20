@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchComponent from '../components/SearchComponent'
 
 const SearchContainer = () => (
   <div>
