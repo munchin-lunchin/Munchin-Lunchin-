@@ -1,4 +1,6 @@
-function joesFrontEndCookieParser (str) {
+const authenticate = {};
+
+authenticate.joesFrontEndCookieParser = function (str) {
   str = str.split('; ');
   var result = {};
   for (var i = 0; i < str.length; i++) {
@@ -8,11 +10,11 @@ function joesFrontEndCookieParser (str) {
   return result;
 }
 
-const isAuthenticated = () => {
+authenticate.isAuthenticated = function () {
   const cookiesStr = document.cookie;
-  const cookiesObj = joesFrontEndCookieParser(cookiesStr);
+  const cookiesObj = authenticate.joesFrontEndCookieParser(cookiesStr);
   if (cookiesObj.userId) return true;
   return false;
 }
 
-export default isAuthenticated;
+module.exports = authenticate;

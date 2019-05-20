@@ -2,12 +2,16 @@ import { gql } from 'apollo-boost'
 import { graphql, Query, compose } from 'react-apollo'
 import RestaurantComponent from '../components/RestaurantComponent'
 import React, { useState, useEffect } from 'react';
+import { joesFrontEndCookieParser } from './../services/authenticate';
 
 
 //Graphql query for restaurants our user has liked previously.
+const myCookies = joesFrontEndCookieParser(document.cookie);
+const myUserId = myCookies.userId;
+console.log(myCookies);
 const getLikesQuery = gql`
 {
-  user(_id: 1) {
+  user(_id: ${myUserId}) {
     username
     restaurants {
       name
@@ -47,10 +51,10 @@ const HistoryContainer = ({ getLikesQuery, deleteLikeMutation }) => {
   }
 
   return (
-      <div>
-        <h2> a history container is here! </h2>
-        {restaurantMapping()}
-      </div> 
+    <div>
+      <h2> a history container is here! </h2>
+      {restaurantMapping()}
+    </div>
   )
 };
 

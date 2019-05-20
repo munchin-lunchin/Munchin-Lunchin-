@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Redirect } from "react-router-dom";
 // import isAuthenticated from "./../services/authenticate";
 
-function LoginContainer () {
+function LoginContainer() {
   const [redirect, setRedirect] = useState(false);
 
   return (
@@ -27,7 +27,6 @@ function LoginContainer () {
           if (res2.authenticated) {
             console.log('The server authenticated the user!');
             setRedirect(res2.authenticated);
-            // return <Redirect to="/main" />
           } else {
             console.log('User not authenticated.')
           }

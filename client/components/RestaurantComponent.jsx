@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 function RestaurantComponent ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation }) {
  return (
   <div>
