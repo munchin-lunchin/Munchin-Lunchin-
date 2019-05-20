@@ -1,4 +1,4 @@
-const { 
+const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
@@ -53,7 +53,7 @@ const UserType = new GraphQLObjectType({
         return pool
           .query(getRestaurants)
           .then(restaurants => {
-            console.log('The restaurants from the db are: \n', restaurants.rows);
+            // console.log('The restaurants from the db are: \n', restaurants.rows);
             return restaurants.rows;
           })
           .catch(err => console.error('Error during "select restaurants" GraphQL UserType\n', err));
@@ -78,7 +78,7 @@ const RestaurantType = new GraphQLObjectType({
     longitude: { type: GraphQLFloat },
     users: {
       type: new GraphQLList(UserType),
-      resolve(parent, args) { 
+      resolve(parent, args) {
         const getUsers = `
           SELECT u.* 
           FROM likes l INNER JOIN users u ON l.user_id = u._id 
@@ -87,7 +87,7 @@ const RestaurantType = new GraphQLObjectType({
         return pool
           .query(getUsers)
           .then(users => {
-            console.log('The users from the db are: \n', users.rows);
+            // console.log('The users from the db are: \n', users.rows);
             return users.rows;
           })
           .catch(err => console.error('Error during "select users" GraphQL RestaurantType\n', err));
@@ -156,7 +156,7 @@ const Mutation = new GraphQLObjectType({
   fields: {
     addLike: {
       type: LikeType,
-      args: { 
+      args: {
         user_id: { type: GraphQLInt },
         rest_id: { type: GraphQLInt }
       },
@@ -177,7 +177,7 @@ const Mutation = new GraphQLObjectType({
 
     deleteLike: {
       type: LikeType,
-      args: { 
+      args: {
         user_id: { type: GraphQLInt },
         rest_id: { type: GraphQLInt }
       },
@@ -201,7 +201,7 @@ const Mutation = new GraphQLObjectType({
 
     addUser: {
       type: UserType,
-      args: { 
+      args: {
         username: { type: GraphQLString },
         password: { type: GraphQLString }
       },
@@ -236,7 +236,7 @@ const Mutation = new GraphQLObjectType({
     // }
     addRestaurant: {
       type: RestaurantType,
-      args: { 
+      args: {
         rating: { type: GraphQLInt },
         reviewCount: { type: GraphQLInt },
         yelpID: { type: GraphQLString },
@@ -297,7 +297,7 @@ const Mutation = new GraphQLObjectType({
     deleteRestaurant: {
       type: RestaurantType,
       args: {
-        yelpID: { type: GraphQLString }        
+        yelpID: { type: GraphQLString }
       },
       resolve(parent, { yelpID }) {
         let restaurant;
