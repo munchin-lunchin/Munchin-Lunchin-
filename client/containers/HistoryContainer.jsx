@@ -3,6 +3,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo'
 import { gql } from 'apollo-boost'
 import { graphql } from 'react-apollo'
+import RestaurantComponent from '../components/RestaurantComponent'
 
 //Graphql query for restaurants our user is trying to find.
 const getLikesQuery = gql`
