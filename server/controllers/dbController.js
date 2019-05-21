@@ -30,6 +30,8 @@ dbController.addRestaurant = (req, res, next) => {
   const { display_address } = req.body.location;
   const displayAddress = display_address.join(" ");
 
+  console.log(id, name, rating, image_url, review_count, url, price, latitude, longitude ,displayAddress)
+
   console.log(`adding ${name} to db! `)
 
   //create query string
@@ -52,6 +54,7 @@ dbController.addRestaurant = (req, res, next) => {
 dbController.addToLikeTable = (req, res) => {
   const userID = req.cookies.userId;
   const restID = res.locals.rest_id;
+  console.log(userID,'  ',restID)
 
   const addLike = `INSERT INTO likes (user_id, rest_id) VALUES ('${userID}', '${restID}')`
 
