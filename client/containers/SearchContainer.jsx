@@ -21,7 +21,7 @@ const SearchContainer = () => {
       });
   };
 
-  function likeRestaurant (data) {
+  function likeRestaurant(data) {
     console.log('yo data here:', data);
     fetch('http://localhost:3000/likes', {
       method: 'POST',
@@ -32,7 +32,7 @@ const SearchContainer = () => {
       console.log(resp);
       if (resp.status === 200) setRestaurantList([]);
       else console.log('There was an error!');
-    })
+    }).then(() => location.reload())
       .catch(err => console.error(err));
   };
 
@@ -44,11 +44,14 @@ const SearchContainer = () => {
 
   return (
     <div>
-      <h1> THIS IS A SEARCH CONTAINER YO</h1>
+      <h1> Search</h1>
       Restaurant Name: <input id="whereYouAteYoFoodsInput"></input>
       Zipcode: <input id="zipcodeOfWhereYouEatYoFoodsInput"></input>
       <button id="yelpSearchButton" onClick={queryYelpAPI}> Search for restaurants </button>
-      {searchResultComponents}
+      <div id="searchContainer">
+        {searchResultComponents}
+      </div>
+
     </div>
   );
 };

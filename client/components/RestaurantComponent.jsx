@@ -1,10 +1,8 @@
 import React from 'react';
 
-
-function RestaurantComponent ({ name, rating, displayAddress, price, reviewCount }) {
+function RestaurantComponent ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation, getLikesQuery, userId }) {
  return (
-  <div>
-
+  <div className='history'>
     <strong>Name: </strong>{name}
     <br/>
     <strong>Rating: </strong>{rating}
@@ -14,6 +12,17 @@ function RestaurantComponent ({ name, rating, displayAddress, price, reviewCount
     <strong>Price: </strong>{price}
     <br/>
     <strong>Address: </strong>{displayAddress}
+    <button onClick={() => {
+      console.log('Getlikesquery is', getLikesQuery);
+      deleteLikeMutation({
+        variables: {
+          user_id: parseInt(userId),
+          rest_id: parseInt(_id)
+        },
+        refetchQueries: [{ query: getLikesQuery }]
+      });
+    }
+    }>Delete</button>
   </div>
  )
 }

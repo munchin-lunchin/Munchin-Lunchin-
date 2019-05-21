@@ -2,12 +2,13 @@ import React from 'react';
 
 const RestaurantSearchResultComponent = (props) => {
 
-  return (<div>
-    <h5>Dis a restaurant</h5>
-    <h6>{props.data.name}</h6>
-    <h6>{JSON.stringify(props.data.location)}</h6>
-    <button onClick={() => {props.likeRestaurant(props.data)}}> This is the restaurant I liked! </button>
-  </div>);
+  return (
+    <div className="searchResult">
+      <h4>{props.data.name}</h4>
+      <h6>{props.data.location.display_address[0]}<br />
+        {props.data.location.display_address[1]}</h6>
+      <button onClick={() => { props.likeRestaurant(props.data) }}> Like </button>
+    </div>);
 }
 
 export default RestaurantSearchResultComponent;

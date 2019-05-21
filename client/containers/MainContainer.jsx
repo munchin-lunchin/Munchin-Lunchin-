@@ -3,11 +3,10 @@ import SearchContainer from './SearchContainer';
 import HistoryContainer from './HistoryContainer';
 
 const MainContainer = () => (
-  <div>
-    <h1>In the main container</h1>
+  <div id="MainContainer" >
     <SearchContainer />
     <HistoryContainer />
-  </div>
+  </div >
 );
 
 export default MainContainer;

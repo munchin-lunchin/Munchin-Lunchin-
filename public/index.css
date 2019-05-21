@@ -1,35 +1,66 @@
-#msgContainer {
-  padding: 0px 30%;
+/* * {
+  border : 1px solid black;
+} */
+
+body {
+  margin: 0;
+  padding: 0px;
+}
+
+#headerComp {
+  background: linear-gradient(to bottom left, lightblue, darkblue);
+  color: silver;
+  padding: 10px;
+  font-family: 'Baloo Bhai', cursive;
+}
+
+#loginContainer {
+  margin-top: 30px;
+  margin-left: 10px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#mainContainer {
+  /* border: 1px solid red; */
+  display: grid;
+  grid-template-columns: 66% 33%;
+  margin-top: 30px;
+  margin-bottom: 100px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.history {
   border: 1px solid black;
+  padding: 10px; 
+  margin-top: 10px;
+  background-color: rgb(220, 229, 236);
 }
 
-#msgDisplay {
+#searchContainer {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  margin-right: 50px;
+  grid-column-gap: 25px;
+  justify-content: space-between;
+}
+
+.searchResult {
+  text-align: center;
   border: 1px solid black;
-  list-style-type: none;
-  padding: 0px 10px;
+  border: 1px solid black;
+  padding: 0 10px 10px 10px; 
+  margin: 10px;
+  background-color:GAINSBORO;
 }
 
-#addMessageButton {
-  background: #4CAF50;
-  color: white;
-  border-style: outset;
-  border-color: #4CAF50;
-  /* height: 50px;
-  width: 150px; */
-  font: bold 15px arial, sans-serif;
-  text-shadow: none;
+.searchResult h4{
+  margin: 5px;
+  margin-top: 15px;
 }
 
-.closeButton:hover{
-  background: red;
-}
-.closeButton {
-  border-radius: 10px;
+.searchResult h6{
+  margin: 5px;
 }
 
-.editButton:hover{
-  background: aqua;
-}
-.editButton {
-  border-radius: 10px;
-}
