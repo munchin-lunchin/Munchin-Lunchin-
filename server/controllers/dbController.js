@@ -4,13 +4,12 @@ const dbController = {};
 
 dbController.searchForRestaurant = (req, res, next) => {
   const { url } = req.body;
-  // console.log(url);
   const find = `SELECT _id FROM restaurant WHERE URL='${url}'`
   pool.query(find)
     .then(result => {
       console.log('searching database for restaurant')
       if (result.rows.length) {
-        res.locals.rest_id = result.rows[0]._id
+        res.locals.rest_id = result.rows[0]._id;
       }
       res.locals.rest_id ?
         console.log('found restaurant in db - do not need to add to restaurant table') :
@@ -25,7 +24,7 @@ dbController.searchForRestaurant = (req, res, next) => {
 }
 
 dbController.addRestaurant = (req, res, next) => {
-  // console.log('reqbody', req.body);
+  if(res.locals.rest_id) return next();
   const { id, name, rating, image_url, review_count, url, price } = req.body;
   const { latitude, longitude } = req.body.coordinates;
   const { display_address } = req.body.location;
@@ -52,9 +51,6 @@ dbController.addRestaurant = (req, res, next) => {
 
 dbController.addToLikeTable = (req, res) => {
   const userID = req.cookies.userId;
-  // console.log('req.cookies.userId;: ', req.cookies.userId);
-  //hard code userID
-  // const userID = 3;
   const restID = res.locals.rest_id;
 
   const addLike = `INSERT INTO likes (user_id, rest_id) VALUES ('${userID}', '${restID}')`
@@ -65,7 +61,6 @@ dbController.addToLikeTable = (req, res) => {
       return res.send(req.body);
     })
     .catch(err => {
-      // console.log('addLike: ', addLike);
       console.log(err);
       res.status(400).send(err)
     });

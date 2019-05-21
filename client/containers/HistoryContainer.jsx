@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost'
-import { graphql, Query, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import RestaurantComponent from '../components/RestaurantComponent'
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { joesFrontEndCookieParser } from './../services/authenticate';
 
 
@@ -40,12 +40,13 @@ const HistoryContainer = (props) => {
   // const [restaurantHistory, setRestaurantHistory] = useState([]);
   const getLikes = props.getLikesQuery;
   const deleteLikeMutation = props.deleteLikeMutation;
-  //no idea why this function runs a second time once data has loaded and why use effect is not needed
+  //no idea why this function errors out in line 47 but we added a refresh button in 48 to resolve
   const restaurantMapping = () => {
     if (getLikes.loading) {
       return <div>Loading</div>
+    } else if (getLikes.error) {
+      return <button onClick={() => location.reload()}>See History!</button>
     } else {
-      console.log(getLikes);
       return getLikes.user.restaurants.map((rest) => (
         <RestaurantComponent
           {...rest}

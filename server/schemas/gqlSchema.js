@@ -1,3 +1,5 @@
+// Watch NETNINJA GRAPHQL TUTORIAL videos on YOUTUBE
+
 const {
   GraphQLObjectType,
   GraphQLString,
