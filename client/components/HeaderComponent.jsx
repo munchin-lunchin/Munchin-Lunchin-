@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HeaderComponent = () => (
   <div id="headerComp">
-    <h1>Munchin' Lunchin'</h1>
+    <h1>Feastin' With Frien'dz</h1>
     <Link to="/main">
       <button>Go to main page</button>
     </Link>
