@@ -7,10 +7,10 @@ function LoginContainer() {
   const [redirect, setRedirect] = useState(false);
 
   return (
-    <div id="loginContainer">
-      <input id='username' placeholder='Username' className='loginInputs' />
-      <input id='password' placeholder='Password' className='loginInputs' />
-      <button id='login' onClick={() => {
+    <form id="loginContainer">
+      <input type='text' name='username'  className='loginInputs' required />
+      <input type='password' name='password' className='loginInputs' required />
+      <button type='submit' id='login' onClick={() => {
         const data = {
           username: document.querySelector('#username').value,
           password: document.querySelector('#password').value
@@ -34,7 +34,7 @@ function LoginContainer() {
           .catch(error => console.error('Error:', error));
       }}> Login! </button>
       {redirect && <Redirect to='/main' />}
-    </div>
+    </form>
   )
 }
 
