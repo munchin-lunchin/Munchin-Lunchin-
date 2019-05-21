@@ -1,5 +1,6 @@
 const authenticate = {};
 
+// cookies look like this 'UserId=hello; timeout=hello'
 authenticate.joesFrontEndCookieParser = function (str) {
   str = str.split('; ');
   var result = {};

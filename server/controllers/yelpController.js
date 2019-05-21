@@ -6,9 +6,6 @@ const client = yelp.client(APIKey);
 const yelpController = {};
 
 yelpController.searchYelp = (req, res) => {
-  // console.log('req', req);
-  // console.log('params', req.params);
-
   const { name, zip } = req.params;
   if (!name || !zip) res.json({});
 

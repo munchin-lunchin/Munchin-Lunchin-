@@ -9,7 +9,6 @@ const { addRestaurant, addToLikeTable, searchForRestaurant } = require('./contro
 
 const app = express();
 const homeURL = path.join(__dirname, '../public/index.html');
-const cssURL = path.join(__dirname, '../public/index.css');
 
 /* 
  Express-GraphQL module allows Express to understand GraphQL. Provides simple way to create
@@ -33,18 +32,11 @@ app.use((req, res, next) => {
 });
 
 // Set up routes
-// if (process.env.NODE_ENV === 'production') {
-app.use('/dist', express.static(path.join(__dirname, '../dist')));
-app.use('/public', express.static(__dirname + './../public/'));
-app.get('/', (req, res) => res.sendFile(homeURL));
-// }
-
-// // Login Page - get request
-app.get('/redirect', (req, res) => {
-  console.log(path.resolve(__dirname, 'test.html'));
-  res.sendFile(path.resolve(__dirname, 'test.html'));
-});
-
+if (process.env.NODE_ENV === 'production') {
+  app.use('/dist', express.static(path.join(__dirname, '../dist')));
+  app.use('/public', express.static(__dirname + './../public/'));
+  app.get('/', (req, res) => res.sendFile(homeURL));
+}
 
 //route to yelp API
 app.get('/yelp/restaurantName/:name/restaurantZip/:zip', searchYelp);
