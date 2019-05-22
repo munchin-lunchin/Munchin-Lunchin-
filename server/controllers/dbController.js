@@ -32,6 +32,8 @@ dbController.addRestaurant = (req, res, next) => {
 
   console.log(id, name, rating, image_url, review_count, url, price, latitude, longitude ,display_address)
 
+  console.log(id, name, rating, image_url, review_count, url, price, latitude, longitude ,displayAddress)
+
   console.log(`adding ${name} to db! `)
 
   //create query string

@@ -165,7 +165,6 @@ const Query = new GraphQLObjectType({
         return client
           .search(input)
           .then(result => {
-            console.log('This are the results from Yelp: ', result.jsonBody.businesses);
             return result.jsonBody.businesses;
           })
           .catch(e => console.log(e));
