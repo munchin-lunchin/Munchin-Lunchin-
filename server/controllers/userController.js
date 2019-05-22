@@ -10,7 +10,6 @@ userController.verifyUser = (req, res, next) => {
   pool
     .query(userQuery)
     .then(user => {
-        console.log('The user from the db is: \n', user.rows[0]);
         if (!user.rows[0]) return res.json({ authenticated: false });
         res.locals.id = user.rows[0]._id;
         return next();

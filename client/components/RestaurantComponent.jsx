@@ -13,7 +13,6 @@ function RestaurantComponent ({ _id, name, rating, displayAddress, price, review
     <br/>
     <strong>Address: </strong>{displayAddress}
     <button onClick={() => {
-      console.log('Getlikesquery is', getLikesQuery);
       deleteLikeMutation({
         variables: {
           user_id: parseInt(userId),

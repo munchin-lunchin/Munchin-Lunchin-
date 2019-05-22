@@ -23,12 +23,9 @@ function LoginContainer() {
           body: JSON.stringify(data)
         }).then(resp => resp.json()
         ).then(res2 => {
-          console.log('We have received a response from the server about authentication:')
           if (res2.authenticated) {
-            console.log('The server authenticated the user!');
             setRedirect(res2.authenticated);
           } else {
-            console.log('User not authenticated.')
           }
         })
           .catch(error => console.error('Error:', error));

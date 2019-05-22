@@ -8,8 +8,6 @@ import { joesFrontEndCookieParser } from './../services/authenticate';
 //Graphql query for restaurants our user has liked previously.
 const myCookies = joesFrontEndCookieParser(document.cookie);
 const myUserId = myCookies.userId;
-console.log('My cookies', myCookies);
-console.log('My user ID:', myUserId);
 const getLikesQuery = gql`
 {
   user(_id: ${myUserId}) {

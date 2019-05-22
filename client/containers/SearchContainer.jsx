@@ -13,7 +13,6 @@ const SearchContainer = () => {
     fetch(`http://localhost:3000/yelp/restaurantName/${data.name}/restaurantZip/${data.zip}`,
       { method: 'GET' })
       .then(resp => {
-        console.log('resp', resp);
         return resp.json()
       }
       ).then(res2 => {
@@ -22,22 +21,18 @@ const SearchContainer = () => {
   };
 
   function likeRestaurant(data) {
-    console.log('yo data here:', data);
     fetch('http://localhost:3000/likes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     }).then(resp => {
-      console.log('We have received a response from the server about liking a restaurant:');
-      console.log(resp);
       if (resp.status === 200) setRestaurantList([]);
-      else console.log('There was an error!');
+      else console.error('There was an error!');
     }).then(() => location.reload())
       .catch(err => console.error(err));
   };
 
   const searchResultComponents = [];
-  console.log(restaurantList)
   for (const restaurant of restaurantList) {
     searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
   };
