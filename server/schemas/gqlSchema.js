@@ -141,7 +141,6 @@ const Query = new GraphQLObjectType({
           location: zipcode,
           limit: 20,
         }
-
         return client
           .search(input)
           .then(result => result.jsonBody.businesses)

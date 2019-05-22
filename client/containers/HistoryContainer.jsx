@@ -41,6 +41,7 @@ const HistoryContainer = (props) => {
   // const [restaurantHistory, setRestaurantHistory] = useState([]);
   const getLikes = props.getLikesQuery;
   const deleteLikeMutation = props.deleteLikeMutation;
+
   //no idea why this function errors out in line 47 but we added a refresh button in 48 to resolve
   const restaurantMapping = () => {
     if (getLikes.loading) {
