@@ -43,7 +43,7 @@ yelpGQLController.searchYelpGQL = (req, res) => {
   fetch('https://api.yelp.com/v3/graphql', {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer RCHzqJmqDK-BgGQYiNjqjV5f0GuhOybwvvkSJGkWDKTdX03BXU3aT83MMKNmdoKvs3_sy4vWgj-60sDtbYb_WkLs0jvYoyzWyPZXiqNAs4JoN7J2vQ626rcQI4DkXHYx',
+      'Authorization': `Bearer ${APIKEY}`,
       'Accept': '*/*',
       'Content-Type': 'application/graphql',
     },
