@@ -1,7 +1,6 @@
 import React from 'react';
 
 const RestaurantSearchResultComponent = ({ data, addRestaurantMutation}) => {
-  console.log(' props are ', data);
   return (
     <div className="searchResult">
       <h4>{data.name}</h4>

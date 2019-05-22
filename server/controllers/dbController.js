@@ -78,19 +78,14 @@ dbController.addToLikeTable = (req, res) => {
 
 dbController.checkUser = (req, res, next) => {
   const { username, password } = req.body;
-  console.log('username ', username);
-  console.log('password ', password);
   let taken;
   //check if username is available
   const checkUsername = `SELECT * FROM users WHERE username='${username}';`
   pool.query(checkUsername)
     .then(result => {
-      console.log('Result from DB when searching user ', result);
       if (result.rowCount) {
-        console.log('Found user in DB')
         return res.json({ authenticated: false });
       } else {
-        console.log('user not in db');
         next()
       }
       
@@ -112,7 +107,6 @@ dbController.checkUser = (req, res, next) => {
     pool.query(add)
       .then(result => {
         if (result.rows[0]._id) {
-          console.log('Adding user to db')
           next()
         } else {
           return res.json({ authenticated: false });

@@ -24,7 +24,6 @@ function LoginContainer() {
           if (res2.authenticated) {
             setRedirect(res2.authenticated);
           } else {
-            console.log('User was not authenticated.')
           }
         })
         .catch(error => console.error('Error:', error)); }}>

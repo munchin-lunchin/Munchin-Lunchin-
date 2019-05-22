@@ -15,9 +15,6 @@ const SignupComponent = () => {
           username: document.querySelector('#signName').value,
           password: document.querySelector('#signPass').value
         };
-
-        console.log(signData)
-
         fetch('http://localhost:3000/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -25,7 +22,6 @@ const SignupComponent = () => {
         })
           .then(res => res.json())
           .then(res => {
-            console.log(res)
             if (res.authenticated) {
               setRedirect(res.authenticated);
             } else {

@@ -35,8 +35,6 @@ const deleteLikeMutation = gql`
 `;
 
 const HistoryContainer = (props) => {
-  //console.log('There are my PROPS from History Ciontainer', props);
-  // const [restaurantHistory, setRestaurantHistory] = useState([]);
   const getLikes = props.getLikesQuery;
   const deleteLikeMutation = props.deleteLikeMutation;
 
