@@ -11,10 +11,8 @@ yelpGQLController.searchYelpGQL = (req, res) => {
   console.log(req.params);
   if (!name || !zip) res.json({});
 
-  console.log('name zip', name, zip);
-
   const searchInput = `{
-    search(term: "burger king", location: "new york", limit: 2) {
+    search(term: "${name}", location: "${zip}", limit: ${searchLimit}) {
       business {
         name
         id
