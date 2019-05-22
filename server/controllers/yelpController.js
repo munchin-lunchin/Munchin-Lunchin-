@@ -5,9 +5,8 @@ const client = yelp.client(APIKey);
 
 const yelpController = {};
 
-yelpController.searchYelp = (req, res) => {
-  const { name, zip } = req.params;
-  if (!name || !zip) res.json({});
+yelpController.searchYelp = (name, zip) => {
+  if (!name || !zip) return {};
 
   const input = {
     term: name,
@@ -17,7 +16,10 @@ yelpController.searchYelp = (req, res) => {
 
   client
     .search(input)
-    .then(result => res.status(200).send(result.jsonBody.businesses))
+    .then(result => {
+      console.log('in yelp controller')
+      return result.jsonBody.businesses;
+    })
     .catch(e => console.log(e));
 }
 
