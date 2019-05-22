@@ -1,8 +1,5 @@
 const yelp = require('yelp-fusion');
-const APIKey = 'PgeEZ_bVQ2ocvaCg89ZRCmcdPxLdsPcQWawYBYJhuD4X1ScfCkqpMNAdVHo1w4TsKXEq3G6VaGJTQyuBUrZUlElX69VEkttkVnN4YJgKSSiI8bQn0irMzClDrivgXHYx';
-const client = yelp.client(APIKey);
-
-
+const client = yelp.client(process.env.YELP_API_KEY);
 const yelpController = {};
 
 yelpController.searchYelp = (name, zip) => {
@@ -14,13 +11,9 @@ yelpController.searchYelp = (name, zip) => {
     limit: 20,
   }
 
-  client
-    .search(input)
-    .then(result => {
-      console.log('in yelp controller')
-      return result.jsonBody.businesses;
-    })
-    .catch(e => console.log(e));
+  client.search(input)
+    .then(result => result.jsonBody.businesses)
+    .catch(e => console.error(e));
 }
 
 module.exports = yelpController;

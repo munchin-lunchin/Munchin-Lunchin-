@@ -11,7 +11,9 @@ const RestaurantSearchResultComponent = ({ data, addRestaurantMutation}) => {
         addRestaurantMutation({
           variables: data
         })
-      }}> Like </button>
+      }}>
+      Like
+      </button>
     </div>);
 }
 

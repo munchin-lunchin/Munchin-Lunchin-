@@ -6,6 +6,9 @@ const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
 const { searchYelp } = require('./controllers/yelpController');
 const { addRestaurant, addToLikeTable, searchForRestaurant } = require('./controllers/dbController');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 const homeURL = path.join(__dirname, '../public/index.html');
@@ -31,17 +34,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// Set up routes
 if (process.env.NODE_ENV === 'production') {
   app.use('/dist', express.static(path.join(__dirname, '../dist')));
   app.use('/public', express.static(__dirname + './../public/'));
   app.get('/', (req, res) => res.sendFile(homeURL));
 }
 
-//route to yelp API
 app.get('/yelp/restaurantName/:name/restaurantZip/:zip', searchYelp);
 
-//route to add liked restaurant
 app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
 
 app.post('/login', verifyUser, setCookie);
