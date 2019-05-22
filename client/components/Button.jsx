@@ -16,17 +16,18 @@ const Button = styled.button`
     padding: 1em;
     margin: 2em 0;
     width: 18em;
-    box-shadow: 0 10px 20px -10px rgba(44,42,33,0.38);
+    box-shadow: ${props => (!props.disabled
+    ? '0 10px 20px -10px rgba(44,42,33,0.38)'
+    : 'none')};
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      
       cursor: ${props => (!props.disabled
     ? 'pointer'
-    : 'not-allowed')};
+    : 'default')};
       box-shadow: ${props => (!props.disabled
     ? 'box-shadow: 0 15px 25px -8px rgba(44,42,33,0.45)'
-    : 'not-allowed')};
+    : 'none')};
       transform: translateY(-1px);
     }
 
