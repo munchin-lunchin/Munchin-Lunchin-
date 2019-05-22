@@ -26,12 +26,12 @@ class App extends Component {
           {/* For our React Router, this is the 'Hash History' approach from the excellent
               Stack Overflow here: https://stackoverflow.com/questions/27928372/ */}
           <Router >
-            <HeaderComponent />
             <Route
               path="/main"
               render={() => (
                 isAuthenticated() ?
                   (<MainContainer />) :
+                  <HeaderComponent />
                   (<Redirect to="/" />)
               )} />
             <Route exact path='/' component={LoginContainer} />
