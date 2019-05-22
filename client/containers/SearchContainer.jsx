@@ -1,30 +1,7 @@
 import React, { useState } from 'react';
 import RestaurantSearchResultComponent from './../components/RestaurantSearchResultComponent';
 import { gql } from 'apollo-boost';
-import { graphql, compose } from 'react-apollo';
-
-let nameOfRest;
-let zipcodeOfRest;
-
-const SearchRestaurantsQuery = gql`
-  mutation {
-      yelp( 
-        name: "Mamo",
-        zipcode: 10012
-      ){
-        rating
-        review_count
-        yelp_id
-        name
-        display_address
-        image_url
-        url
-        price
-        latitude
-        longitude
-      }
- }
-`
+import { graphql, compose, Query } from 'react-apollo';
 
 const AddRestaurantMutation = gql`
   mutation {
@@ -54,10 +31,39 @@ const AddRestaurantMutation = gql`
   }
 `
 
+let name;
+let zipcodeRest;
+
+const SearchRestaurantsQuery = gql`
+    {
+      yelp( 
+        name: ${name},
+        zipcode: ${zipcodeRest}
+      ){
+        rating
+        review_count
+        yelp_id
+        name
+        display_address
+        image_url
+        url
+        price
+        latitude
+        longitude
+      }
+    }
+`
+
 const SearchContainer = (props) => {
+
   const [restaurantList, setRestaurantList] = useState([]);
   const [ zipcode, setZipCode ] = useState('');
   const [ restName, setRestName] = useState('');
+
+  // <Query query={SearchRestaurantsQuery} >
+  // { ({loading, error, data}) => {
+  //     if(loading) return console.log("loading...")
+  //     if(error) return console.log("error...")
 
   //THIS IS COMMENTED OUT. THIS PREVIOUSLY MADE A CALL TO GET THE YELP RESULTS
   // const queryYelpAPI = () => {
@@ -100,20 +106,18 @@ const SearchContainer = (props) => {
   // console.log(' rest name ', zipcode)
   // console.log(' zip code ', restName)
 
-
   return (
     <div>
       <h1> Search</h1>
       Restaurant Name: <input id="whereYouAteYoFoodsInput" onChange={(e) => setRestName(e.target.value)}></input>
       Zipcode: <input id="zipcodeOfWhereYouEatYoFoodsInput" onChange={(e) => setZipCode(e.target.value)}></input>
       <button id="yelpSearchButton" onClick={() => {
-        nameOfRest = restName;
-        zipcodeOfRest = zipcode;
-        const restResult = props.SearchRestaurantsQuery;
-        console.log(' query ', restResult);
-        if(restResult.loading) {
+        name = restName;
+        zipcodeRest = zipcode;
+        graphql(SearchRestaurantsQuery, { name: 'SearchRestaurantsQuery' });
+        if(SearchRestaurantsQuery.loading) {
           console.log('loading')
-        } else console.log(' RESULT IS ', restResult.yelp);
+        } else console.log(' RESULT IS ', SearchRestaurantsQuery.yelp);
       }}> Search for restaurants </button>
       <div id="searchContainer">
         {searchResultComponents}
@@ -121,9 +125,10 @@ const SearchContainer = (props) => {
 
     </div>
   );
+    // }}
+    // </Query>
 };
 
 export default compose(
-  graphql(AddRestaurantMutation, { name: 'AddRestaurantMutation' }),
-  graphql(SearchRestaurantsQuery, { name: 'SearchRestaurantsQuery' })
+  graphql(AddRestaurantMutation, { name: 'AddRestaurantMutation' })
 )(SearchContainer);
