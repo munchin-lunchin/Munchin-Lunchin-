@@ -14,11 +14,11 @@ const getLikesQuery = gql`
     username
     restaurants {
       name
-      displayAddress
+      display_address
       price
       rating
-      reviewCount
-      imageURL
+      review_count
+      image_url
       _id
     }
   }
@@ -35,9 +35,11 @@ const deleteLikeMutation = gql`
 `;
 
 const HistoryContainer = (props) => {
+  //console.log('There are my PROPS from History Ciontainer', props);
   // const [restaurantHistory, setRestaurantHistory] = useState([]);
   const getLikes = props.getLikesQuery;
   const deleteLikeMutation = props.deleteLikeMutation;
+
   //no idea why this function errors out in line 47 but we added a refresh button in 48 to resolve
   const restaurantMapping = () => {
     if (getLikes.loading) {

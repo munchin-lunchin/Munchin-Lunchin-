@@ -1,7 +1,4 @@
 const { searchYelp } = require('../controllers/yelpController.js');
-
-// Watch NETNINJA GRAPHQL TUTORIAL videos on YOUTUBE
-
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -11,23 +8,24 @@ const {
   GraphQLSchema,
   GraphQLFloat
 } = require('graphql');
-
+const yelp = require('yelp-fusion');
 const pool = require('../database/psqlDb.js');
+const client = yelp.client(process.env.YELP_API_KEY);
 
 /*
 Table Schema:
-1. User Table: 
+1. User Table:
  - _id
  - username
  - password
 
-2. Restaurant Table: 
+2. Restaurant Table:
  - rating,
- - reviewCount,
- - yelpID,
+ - review_count,
+ - yelp_id,
  - name,
- - displayAddress,
- - imageURL,
+ - display_address,
+ - image_url,
  - url,
  - price,
  - latitude,
@@ -37,7 +35,6 @@ Table Schema:
  - _id
  - user_id
  - rest_Id
-
 */
 
 const UserType = new GraphQLObjectType({
@@ -50,15 +47,13 @@ const UserType = new GraphQLObjectType({
       type: new GraphQLList(RestaurantType),
       resolve(parent, args) {
         const getRestaurants = `
-          SELECT r.* 
-          FROM likes l INNER JOIN restaurant r ON l.rest_id = r._id 
-          WHERE l.user_id = ${parent._id} 
+          SELECT r.*
+          FROM likes l INNER JOIN restaurants r ON l.rest_id = r._id
+          WHERE l.user_id = ${parent._id}
         `;
         return pool
           .query(getRestaurants)
-          .then(restaurants => {
-            return restaurants.rows;
-          })
+          .then(restaurants => restaurants.rows)
           .catch(err => console.error('Error during "select restaurants" GraphQL UserType\n', err));
       }
     }
@@ -70,11 +65,11 @@ const RestaurantType = new GraphQLObjectType({
   fields: () => ({
     _id: { type: GraphQLID },
     rating: { type: GraphQLFloat },
-    reviewCount: { type: GraphQLInt },
-    yelpID: { type: GraphQLString },
+    review_count: { type: GraphQLInt },
+    yelp_id: { type: GraphQLString },
     name: { type: GraphQLString },
-    displayAddress: { type: GraphQLString },
-    imageURL: { type: GraphQLString },
+    display_address: { type: GraphQLString },
+    image_url: { type: GraphQLString },
     url: { type: GraphQLString },
     price: { type: GraphQLString },
     latitude: { type: GraphQLFloat },
@@ -83,15 +78,13 @@ const RestaurantType = new GraphQLObjectType({
       type: new GraphQLList(UserType),
       resolve(parent, args) {
         const getUsers = `
-          SELECT u.* 
-          FROM likes l INNER JOIN users u ON l.user_id = u._id 
-          WHERE l.rest_id = ${parent._id} 
+          SELECT u.*
+          FROM likes l INNER JOIN users u ON l.user_id = u._id
+          WHERE l.rest_id = ${parent._id}
         `
         return pool
           .query(getUsers)
-          .then(users => {
-            return users.rows;
-          })
+          .then(users => users.rows)
           .catch(err => console.error('Error during "select users" GraphQL RestaurantType\n', err));
       }
     }
@@ -107,10 +100,6 @@ const LikeType = new GraphQLObjectType({
   }
 });
 
-const yelp = require('yelp-fusion');
-const APIKey = 'PgeEZ_bVQ2ocvaCg89ZRCmcdPxLdsPcQWawYBYJhuD4X1ScfCkqpMNAdVHo1w4TsKXEq3G6VaGJTQyuBUrZUlElX69VEkttkVnN4YJgKSSiI8bQn0irMzClDrivgXHYx';
-const client = yelp.client(APIKey);
-
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -121,9 +110,7 @@ const Query = new GraphQLObjectType({
       resolve(parent, { _id }) {
         return pool
           .query(`SELECT * FROM users WHERE _id = '${_id}'`)
-          .then(user => {
-            return user.rows[0];
-          })
+          .then(user => user.rows[0])
           .catch(err => console.error('Error during "select user" GraphQL query\n', err));
       }
     },
@@ -133,7 +120,7 @@ const Query = new GraphQLObjectType({
       resolve(parent, { userId }) {
         const getRestaurants = `
           SELECT r.*
-          FROM likes l INNER JOIN restaurant r ON r._id = l.rest_id
+          FROM likes l INNER JOIN restaurants r ON r._id = l.rest_id
           WHERE l.user_id = ${userId}
         `;
         return pool
@@ -155,11 +142,8 @@ const Query = new GraphQLObjectType({
         }
         return client
           .search(input)
-          .then(result => {
-            return result.jsonBody.businesses;
-          })
+          .then(result => result.jsonBody.businesses)
           .catch(e => console.error(e));
-    
       }
     }
   }
@@ -173,10 +157,11 @@ const Query = new GraphQLObjectType({
 //   }
 // }
 
-// STRETCH FEATURE? 
+// STRETCH FEATURE?
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
+
     addLike: {
       type: LikeType,
       args: {
@@ -190,9 +175,7 @@ const Mutation = new GraphQLObjectType({
         };
         return pool
           .query(insertLike)
-          .then(like => {
-            return like.rows[0];
-          })
+          .then(like => like.rows[0])
           .catch(err => console.error('Error during addLike GraphQL mutation\n', err));
       }
     },
@@ -208,12 +191,9 @@ const Mutation = new GraphQLObjectType({
         return pool
           .query(`SELECT * FROM likes WHERE user_id = ${user_id} AND rest_id = ${rest_id}`)
           .then(likeData => {
-            like = likeData.rows[0];
             return pool
               .query(`DELETE FROM likes WHERE user_id = ${user_id} AND rest_id = ${rest_id}`)
-              .then(() => {
-                return like;
-              });
+              .then(() => likeData.rows[0])
           })
           .catch(err => console.error('Error during deleteLike GraphQL mutation\n', err));
       }
@@ -232,102 +212,103 @@ const Mutation = new GraphQLObjectType({
         };
         return pool
           .query(insertUser)
-          .then(user => {
-            return user.rows[0];
-          })
+          .then(user => user.rows[0])
           .catch(err => console.error('Error during addUser GraphQL mutation\n', err));
       }
     },
 
-    // mutation {
-    //   addRestaurant(rating:5, reviewCount:10, yelpID:"GQLID", name:"GQLRestaurant", displayAddress:"GQL Street, NY", imageURL:"www.gql.com", url: "www.gql.com", price:"$$$$", latitude:20, longitude:50) {
-    //     rating
-    //     reviewCount
-    //     yelpID
-    //     name
-    //     displayAddress
-    //     imageURL
-    //     url
-    //     price
-    //     latitude
-    //     longitude
-    //   }
-    // }
     addRestaurant: {
       type: RestaurantType,
       args: {
         rating: { type: GraphQLInt },
-        reviewCount: { type: GraphQLInt },
-        yelpID: { type: GraphQLString },
+        review_count: { type: GraphQLInt },
+        yelp_id: { type: GraphQLString },
         name: { type: GraphQLString },
-        displayAddress: { type: GraphQLString },
-        imageURL: { type: GraphQLString },
+        display_address: { type: GraphQLString },
+        image_url: { type: GraphQLString },
         url: { type: GraphQLString },
         price: { type: GraphQLString },
-        latitude: { type: GraphQLInt },
-        longitude: { type: GraphQLInt }
+        latitude: { type: GraphQLFloat },
+        longitude: { type: GraphQLFloat }
       },
       resolve(parent, args) {
         const {
           rating,
-          reviewCount,
-          yelpID,
+          review_count,
+          yelp_id,
           name,
-          displayAddress,
-          imageURL,
+          display_address,
+          image_url,
           url,
           price,
           latitude,
           longitude
         } = args;
+
         const insertRestaurant = {
           text: `
-            INSERT INTO restaurant
-            (rating, "reviewCount", "yelpID", name, "displayAddress", "imageURL", url, price, latitude, longitude)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *
+            INSERT INTO restaurants (
+              rating,
+              "review_count",
+              "yelp_id",
+              name,
+              "display_address",
+              "image_url",
+              url,
+              price,
+              latitude,
+              longitude
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *
           `,
-          values: [rating, reviewCount, yelpID, name, displayAddress, imageURL, url, price, latitude, longitude]
+          values: [
+            rating,
+            review_count,
+            yelp_id,
+            name,
+            display_address,
+            image_url,
+            url,
+            price,
+            latitude,
+            longitude
+          ]
         };
+
         return pool
           .query(insertRestaurant)
-          .then(restaurant => {
-            return restaurant.rows[0];
-          })
+          .then(restaurant => restaurant.rows[0])
           .catch(err => console.error('Error during addRestaurant GraphQL mutation\n', err));
       }
     },
 
     // EDIT ME FOR WHAT FIELDS
     // mutation {
-    //   deleteRestaurant(yelpID: "GQLID") {
+    //   deleteRestaurant(yelp_id: "GQLID") {
     //     rating
-    //     reviewCount
-    //     yelpID
+    //     review_count
+    //     yelp_id
     //     name
-    //     displayAddress
-    //     imageURL
+    //     display_address
+    //     image_url
     //     url
     //     price
     //     latitude
     //     longitude
     //   }
     // }
+
     deleteRestaurant: {
       type: RestaurantType,
       args: {
-        yelpID: { type: GraphQLString }
+        yelp_id: { type: GraphQLString }
       },
-      resolve(parent, { yelpID }) {
-        let restaurant;
+      resolve(parent, { yelp_id }) {
         return pool
-          .query(`SELECT * FROM restaurant WHERE "yelpID" = '${yelpID}'`)
+          .query(`SELECT * FROM restaurants WHERE "yelp_id" = '${yelp_id}'`)
           .then(rest => {
-            restaurant = rest.rows[0];
             return pool
-              .query(`DELETE FROM restaurant WHERE "yelpID" = '${yelpID}'`)
-              .then(() => {
-                return restaurant;
-              });
+              .query(`DELETE FROM restaurants WHERE "yelp_id" = '${yelp_id}'`)
+              .then(() => rest.rows[0]);
           })
           .catch(err => console.error('Error during deleteRestaurant GraphQL mutation\n', err));
       }

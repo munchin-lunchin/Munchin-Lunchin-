@@ -5,7 +5,7 @@ const SignupComponent = () => {
   const [redirect, setRedirect] = useState(false);
   const [taken, setTaken] = useState(false);
   return (
-    <container className="signup">
+    <div className="signup">
       <h2>Sign-Up!</h2>
       <input id="signName" placeholder="Username"></input>
       <input id="signPass" placeholder="Password"></input>
@@ -36,7 +36,7 @@ const SignupComponent = () => {
       }}>Sign-up!</button>
       {taken && <div>Username Taken</div>}
       {redirect && <Redirect to='/main' />}
-    </container>
+    </div>
   )
 }
 

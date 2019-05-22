@@ -1,17 +1,17 @@
 const { Pool } = require('pg');
+const dotenv = require('dotenv');
+dotenv.config()
 
-// Connect db
-// Please insert your own connection string (ElephantSQL - Tiny Turtle Plan is FREE)
 const pool = new Pool({
-  user: 'vyniuedk',
-  host: 'raja.db.elephantsql.com',
-  database: 'vyniuedk',
-  password: 'm-SxYOe6yIRhpJ6aTYcqieNg3_K4JhOZ',
-  port: 5432
+  user:     process.env.DB_USER,
+  host:     process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port:     process.env.DB_PORT
 });
 
-pool.connect((err, client, done) => {
-  if (err) return console.error('could not connect to postgres', err);
+pool.connect(err => {
+  if (err) return console.error('err connecting to db: ', err);
 });
 
 module.exports = pool;
