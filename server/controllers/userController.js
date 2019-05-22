@@ -15,7 +15,10 @@ userController.verifyUser = (req, res, next) => {
         res.locals.id = user.rows[0]._id;
         return next();
     })
-    .catch(err => res.status(400).send('Error getting user from db', err))
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error getting user from database')
+    });
 }
 
 module.exports = userController;
