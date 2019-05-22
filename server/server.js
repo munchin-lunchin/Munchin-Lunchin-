@@ -6,9 +6,12 @@ const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
 const { searchYelp } = require('./controllers/yelpController');
 const { addRestaurant, addToLikeTable, searchForRestaurant } = require('./controllers/dbController');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 const homeURL = path.join(__dirname, '../public/index.html');
+
 
 /* 
  Express-GraphQL module allows Express to understand GraphQL. Provides simple way to create
