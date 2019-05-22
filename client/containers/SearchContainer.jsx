@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import RestaurantSearchResultComponent from './../components/RestaurantSearchResultComponent';
 import { gql } from 'apollo-boost';
-import { graphql, compose, Query, ApolloConsumer } from 'react-apollo';
+import { graphql, compose, ApolloConsumer } from 'react-apollo';
 
-let nameOfRest;
-let zipcodeOfRest;
 
 const SearchRestaurantsQuery = gql`
   query yelp( 
@@ -55,11 +53,12 @@ const AddRestaurantMutation = gql`
   }
 `
 
+
 const SearchContainer = (props) => {
+
   const [restaurantList, setRestaurantList] = useState([]);
   const [ zipcode, setZipCode ] = useState('');
   const [ restName, setRestName] = useState('');
-
 
   const searchResultComponents = [];
   for (const restaurant of restaurantList) {
@@ -91,6 +90,5 @@ const SearchContainer = (props) => {
 };
 
 export default compose(
-  graphql(AddRestaurantMutation, { name: 'AddRestaurantMutation' }),
-  graphql(SearchRestaurantsQuery, { name: 'SearchRestaurantsQuery' })
+  graphql(AddRestaurantMutation, { name: 'AddRestaurantMutation' })
 )(SearchContainer);
