@@ -155,12 +155,13 @@ const Query = new GraphQLObjectType({
         // const newyelp = new Promise(searchYelp(name, zipcode))
 
         // newyelp.then(restul => restul);
-
+        console.log(' in the yelp query ');
         const input = {
           term: name,
           location: zipcode,
           limit: 20,
         }
+        console.log(input);
       
         return client
           .search(input)
