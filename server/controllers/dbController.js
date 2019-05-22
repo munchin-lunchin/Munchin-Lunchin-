@@ -56,6 +56,51 @@ dbController.addToLikeTable = (req, res) => {
     });
 }
 
+dbController.checkUser = (req, res, next) => {
+  const { username, password } = req.body;
+  console.log('username ', username);
+  console.log('password ', password);
+  let taken;
+  //check if username is available
+  const checkUsername = `SELECT * FROM users WHERE username='${username}';`
+  pool.query(checkUsername)
+    .then(result => {
+      console.log('Result from DB when searching user ', result);
+      if (result.rowCount) {
+        console.log('Found user in DB')
+        return res.json({ authenticated: false });
+      } else {
+        console.log('user not in db');
+        next()
+      }
+      
+    })
+    .catch(err => res.status(400).send());
+
+  }
+
+  dbController.addUser = (req, res, next) => {
+
+    const { username, password } = req.body;
+    //create query string
+    const add = {
+      text: `INSERT INTO users (username, password) VALUES ($1, $2) RETURNING _id`,
+      values: [ username, password ]
+    }
+
+    //add query to database
+    pool.query(add)
+      .then(result => {
+        if (result.rows[0]._id) {
+          console.log('Adding user to db')
+          next()
+        } else {
+          return res.json({ authenticated: false });
+        }
+      })
+      .catch(err => res.status(400).send());
+  }
+
 
 
 
