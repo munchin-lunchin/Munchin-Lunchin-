@@ -3,26 +3,21 @@ import React from 'react';
 const RestaurantComponent = ({ _id, name, rating, display_address, price, review_count, deleteLikeMutation, getLikesQuery, userId }) => {
  return (
   <div className='history'>
-    <strong>Name: </strong>{name}
-    <br/>
-    <strong>Rating: </strong>{rating}
-    <br/>
-    <strong>Review Count: </strong>{review_count}
-    <br/>
-    <strong>Price: </strong>{price}
-    <br/>
-    <strong>Address: </strong>{display_address}
-    <button onClick={() => {
-      console.log('Getlikesquery is', getLikesQuery);
-      deleteLikeMutation({
-        variables: {
-          user_id: parseInt(userId),
-          rest_id: parseInt(_id)
-        },
-        refetchQueries: [{ query: getLikesQuery }]
-      });
-    }
-    }>Delete</button>
+    <p className="history-name">Name: </p>{name}
+    <p className="history-rating">Rating: </p>{rating}
+    <p className="history-review-count">Review Count: </p>{review_count}
+    <p className="history-price">Price: </p>{price}
+    <p className="history-address">Address: </p>{display_address}
+    <button
+      onClick={() => {
+        deleteLikeMutation({ variables: {
+            user_id: parseInt(userId),
+            rest_id: parseInt(_id)
+          }, refetchQueries: [{ query: getLikesQuery }]
+        });
+      }}>
+      Delete
+    </button>
   </div>
  )
 }
