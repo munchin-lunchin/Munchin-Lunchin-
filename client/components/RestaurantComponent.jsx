@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RestaurantComponent ({ _id, name, rating, display_address, price, review_count, deleteLikeMutation, getLikesQuery, userId }) {
+const RestaurantComponent = ({ _id, name, rating, display_address, price, review_count, deleteLikeMutation, getLikesQuery, userId }) => {
  return (
   <div className='history'>
     <strong>Name: </strong>{name}
@@ -27,4 +27,4 @@ function RestaurantComponent ({ _id, name, rating, display_address, price, revie
  )
 }
 
-export default RestaurantComponent; 
+export default RestaurantComponent;
