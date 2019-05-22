@@ -10,7 +10,6 @@ dbController.searchForRestaurant = (req, res, next) => {
       if (result.rows.length) {
         res.locals.rest_id = result.rows[0]._id;
       }
-      res.locals.rest_id ?
       return next();
     })
     .catch(err => {
