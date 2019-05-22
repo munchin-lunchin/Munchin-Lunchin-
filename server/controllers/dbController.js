@@ -4,6 +4,7 @@ const dbController = {};
 dbController.searchForRestaurant = (req, res, next) => {
   const { url } = req.body;
   const find = `SELECT _id FROM restaurants WHERE URL='${url}'`
+
   pool.query(find)
     .then(result => {
       if (result.rows.length) {
