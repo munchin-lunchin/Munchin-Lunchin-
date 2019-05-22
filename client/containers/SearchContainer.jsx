@@ -11,7 +11,7 @@ const SearchContainer = () => {
       zip: document.querySelector('#zipcodeOfWhereYouEatYoFoodsInput').value
     }
 
-    fetch(`http://localhost:3000/yelpgql/restaurantName/${data.name}/restaurantZip/${data.zip}`,
+    fetch(`http://localhost:3000/yelp/restaurantName/${data.name}/restaurantZip/${data.zip}`,
       { method: 'GET' })
       .then(resp => {
         console.log('response from get request to yelp graphQL', resp);
