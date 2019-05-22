@@ -10,6 +10,7 @@ const Input = styled.input`
     font-size: 1em;
     line-height: 1em;
     padding: 0.75em 1em;
+    margin-bottom: 1em;
     width: 18em;
     transition: all 0.2s ease-in-out;
     &:focus {

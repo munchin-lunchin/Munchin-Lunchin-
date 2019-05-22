@@ -10,6 +10,7 @@ import Form from '../components/Form'
 import Input from '../components/Input'
 import FormLabel from '../components/FormLabel'
 import Button from '../components/Button'
+import Logo from '../components/Logo'
 // import isAuthenticated from "./../services/authenticate";
 
 function LoginContainer() {
@@ -18,6 +19,7 @@ function LoginContainer() {
   return (
     <Main>
       <FormContainer>
+        <Logo>Lunchin</Logo>
         <Form id="loginContainer">
           {/* <input type='text' name='username'  className='loginInputs' required /> */}
           <FormLabel htmlFor="username">Username</FormLabel>
