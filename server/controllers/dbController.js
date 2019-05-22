@@ -54,7 +54,7 @@ dbController.addRestaurant = (req, res, next) => {
 dbController.addToLikeTable = (req, res) => {
   const userID = req.cookies.userId;
   const restID = res.locals.rest_id;
-  console.log(userID,'  ',restID)
+  console.log(userID,'  ' ,restID)
 
   const addLike = `INSERT INTO likes (user_id, rest_id) VALUES ('${userID}', '${restID}')`
 
