@@ -1,15 +1,16 @@
 // URL for fetch req hardcoded in!
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import '../../public/index.css';
 import Main from '../components/Main';
 import HeroImage from '../components/HeroImage'
 import FormContainer from '../components/FormContainer'
 import Form from '../components/Form'
-import Input from '../components/Input'
-import FormLabel from '../components/FormLabel'
-import Button from '../components/Button'
+import StyledForm from '../components/StyledForm'
+// import Input from '../components/Input'
+// import FormLabel from '../components/FormLabel'
+// import Button from '../components/Button'
 import Logo from '../components/Logo'
 // import isAuthenticated from "./../services/authenticate";
 
@@ -20,9 +21,9 @@ function LoginContainer() {
     <Main>
       <FormContainer>
         <Logo>Lunchin</Logo>
-        <Form id="loginContainer">
+        <StyledForm id="loginContainer" />
           {/* <input type='text' name='username'  className='loginInputs' required /> */}
-          <FormLabel htmlFor="username">Username</FormLabel>
+          {/* <FormLabel htmlFor="username">Username</FormLabel>
           <Input type='text' name='username' className='loginInputs' required />
           <FormLabel htmlFor="password">Password</FormLabel>
           <Input type='password' name='password' className='loginInputs' required />
@@ -48,9 +49,9 @@ function LoginContainer() {
               }
             })
               .catch(error => console.error('Error:', error));
-          }}>Log In</Button>
-          {redirect && <Redirect to='/main' />}
-        </Form>
+          }}>Log In</Button> */}
+          {/* {redirect && <Redirect to='/main' />} */}
+        {/* </StyledForm> */}
       </FormContainer>
       <HeroImage />
     </Main>
