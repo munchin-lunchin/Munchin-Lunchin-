@@ -61,7 +61,6 @@ const SearchContainer = () => {
 
   const searchResultComponents = [];
   for (const restaurant of restaurantList) {
-    console.log('rest is ', restaurant)
     searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} addRestaurantMutation={AddRestaurantMutation} />)
   };
 
@@ -78,7 +77,6 @@ const SearchContainer = () => {
                   variables: { name: restName, zipcode: parseInt(zipcode) }
                 });
                 setRestaurantList(data.yelp);
-                console.log('data is ', data.yelp);
               }}> Search for restaurants </button>
             <div id="searchContainer">
               {searchResultComponents}
