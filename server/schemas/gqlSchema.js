@@ -152,16 +152,12 @@ const Query = new GraphQLObjectType({
       type: new GraphQLList(RestaurantType),
       args: { name: { type: GraphQLString }, zipcode: { type: GraphQLInt }},
       resolve(parent, { name, zipcode }){
-        // const newyelp = new Promise(searchYelp(name, zipcode))
-
-        // newyelp.then(restul => restul);
-
         const input = {
           term: name,
           location: zipcode,
           limit: 20,
         }
-      
+        console.log(input);
         return client
           .search(input)
           .then(result => {
