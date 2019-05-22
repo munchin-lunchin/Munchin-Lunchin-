@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import '../../public/index.css';
 // import isAuthenticated from "./../services/authenticate";
 
 function LoginContainer() {
@@ -9,6 +10,7 @@ function LoginContainer() {
   const Main = styled.main`
     display: flex;
     justify-content: space-between;
+    // height: 100vh;
   `
   const FormContainer = styled.div`
     margin: 0 auto;
@@ -17,7 +19,8 @@ function LoginContainer() {
     order: -1;
     width: 40vw;
     height: 100vh;
-    margin: -8px;
+    // margin: -8px;
+    margin-right: 0;
     background: url(https://images.unsplash.com/photo-1543353071-873f17a7a088?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80);
     background-size: cover;
   `
