@@ -3,11 +3,11 @@ const { Pool } = require('pg');
 // Connect db
 // Please insert your own connection string (ElephantSQL - Tiny Turtle Plan is FREE)
 const pool = new Pool({
-  user: '',
-  host: '',
-  database: '',
-  password: '',
-  port: 1111 
+  user: 'kzbujefd',
+  host: 'isilo.db.elephantsql.com',
+  database: 'kzbujefd',
+  password: 'az33ZfTosSKCrfqnrM1dtGHDPIywoiQ2',
+  port: 5432
 });
 
 pool.connect((err, client, done) => {

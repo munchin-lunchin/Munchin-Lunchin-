@@ -4,16 +4,17 @@ import RestaurantSearchResultComponent from './../components/RestaurantSearchRes
 const SearchContainer = () => {
   const [restaurantList, setRestaurantList] = useState([]);
 
+
   const queryYelpAPI = () => {
     const data = {
       name: document.querySelector('#whereYouAteYoFoodsInput').value,
       zip: document.querySelector('#zipcodeOfWhereYouEatYoFoodsInput').value
     }
 
-    fetch(`http://localhost:3000/yelp/restaurantName/${data.name}/restaurantZip/${data.zip}`,
+    fetch(`http://localhost:3000/yelpgql/restaurantName/${data.name}/restaurantZip/${data.zip}`,
       { method: 'GET' })
       .then(resp => {
-        console.log('resp', resp);
+        // console.log('response from get request to yelp graphQL', resp.body);
         return resp.json()
       }
       ).then(res2 => {
@@ -37,8 +38,9 @@ const SearchContainer = () => {
   };
 
   const searchResultComponents = [];
-  console.log(restaurantList)
+  // console.log('restaurantList: ', restaurantList);
   for (const restaurant of restaurantList) {
+    console.log('restaurant: ', restaurant);
     searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
   };
 

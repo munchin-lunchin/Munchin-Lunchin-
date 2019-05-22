@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
-const { searchYelp } = require('./controllers/yelpController');
+// const { searchYelp } = require('./controllers/yelpController');
+const { yelpGQLsearch } = require('./controllers/yelpGQLController')
 const { addRestaurant, addToLikeTable, searchForRestaurant } = require('./controllers/dbController');
 
 const app = express();
@@ -39,7 +40,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //route to yelp API
-app.get('/yelp/restaurantName/:name/restaurantZip/:zip', searchYelp);
+// app.get('/yelp/restaurantName/:name/restaurantZip/:zip', searchYelp);
+
+app.get('/yelpgql/restaurantName/:name/restaurantZip/:zip', yelpGQLsearch);
 
 //route to add liked restaurant
 app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
