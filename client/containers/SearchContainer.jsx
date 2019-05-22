@@ -53,8 +53,7 @@ const AddRestaurantMutation = gql`
   }
 `
 
-
-const SearchContainer = (props) => {
+const SearchContainer = () => {
 
   const [restaurantList, setRestaurantList] = useState([]);
   const [ zipcode, setZipCode ] = useState('');
@@ -62,6 +61,7 @@ const SearchContainer = (props) => {
 
   const searchResultComponents = [];
   for (const restaurant of restaurantList) {
+    console.log('rest is ', restaurant)
     searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} addRestaurantMutation={AddRestaurantMutation} />)
   };
 
@@ -77,8 +77,8 @@ const SearchContainer = (props) => {
                   query: query1,
                   variables: { name: restName, zipcode: parseInt(zipcode) }
                 });
-                console.log('Click');
-                console.log(data);
+                setRestaurantList(data.yelp);
+                console.log('data is ', data.yelp);
               }}> Search for restaurants </button>
             <div id="searchContainer">
               {searchResultComponents}
