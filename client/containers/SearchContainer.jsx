@@ -14,7 +14,7 @@ const SearchContainer = () => {
     fetch(`http://localhost:3000/yelpgql/restaurantName/${data.name}/restaurantZip/${data.zip}`,
       { method: 'GET' })
       .then(resp => {
-        // console.log('response from get request to yelp graphQL', resp.body);
+        console.log('response from get request to yelp graphQL', resp);
         return resp.json()
       }
       ).then(res2 => {

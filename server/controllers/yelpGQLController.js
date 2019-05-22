@@ -1,4 +1,4 @@
-const APIKey = 'PgeEZ_bVQ2ocvaCg89ZRCmcdPxLdsPcQWawYBYJhuD4X1ScfCkqpMNAdVHo1w4TsKXEq3G6VaGJTQyuBUrZUlElX69VEkttkVnN4YJgKSSiI8bQn0irMzClDrivgXHYx'';
+const APIKEY = 'PgeEZ_bVQ2ocvaCg89ZRCmcdPxLdsPcQWawYBYJhuD4X1ScfCkqpMNAdVHo1w4TsKXEq3G6VaGJTQyuBUrZUlElX69VEkttkVnN4YJgKSSiI8bQn0irMzClDrivgXHYx';
 const fetch = require('node-fetch');
 
 const yelpGQLController = {};
@@ -40,16 +40,20 @@ yelpGQLController.yelpGQLsearch = (req, res) => {
   fetch('https://api.yelp.com/v3/graphql', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${APIKEY} `,
+      'Authorization': `Bearer ${APIKEY}`,
       'Accept': '*/*',
       'Content-Type': 'application/graphql',
     },
     body: searchInput,
   })
-    .then(result => result.json())
     .then(result => {
-      res.send(result.data.search.business)
-      // console.log('yelp graphql business search ', result.data.search.business);
+      console.log('result : ', result);
+      result.json()
+    })
+    .then(result => {
+      console.log('yelp graphql result', result);
+      return res.send(result);
+      // res.send(result.data.search.business)
     })
     .catch(err => {
       console.log('err: ', err);
