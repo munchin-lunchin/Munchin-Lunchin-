@@ -161,6 +161,7 @@ const Query = new GraphQLObjectType({
           location: zipcode,
           limit: 20,
         }
+        console.log(input);
       
         return client
           .search(input)
