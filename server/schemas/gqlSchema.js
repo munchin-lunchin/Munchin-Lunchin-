@@ -1,3 +1,5 @@
+const { searchYelp } = require('../controllers/yelpController.js');
+
 // Watch NETNINJA GRAPHQL TUTORIAL videos on YOUTUBE
 
 const {
@@ -107,6 +109,11 @@ const LikeType = new GraphQLObjectType({
   }
 });
 
+const yelp = require('yelp-fusion');
+const APIKey = 'PgeEZ_bVQ2ocvaCg89ZRCmcdPxLdsPcQWawYBYJhuD4X1ScfCkqpMNAdVHo1w4TsKXEq3G6VaGJTQyuBUrZUlElX69VEkttkVnN4YJgKSSiI8bQn0irMzClDrivgXHYx';
+const client = yelp.client(APIKey);
+
+
 const Query = new GraphQLObjectType({
   name: 'Query',
   fields: {
@@ -139,6 +146,30 @@ const Query = new GraphQLObjectType({
             return restaurants.rows;
           })
           .catch(err => console.error('Error during "select restaurants" GraphQL query\n', err));
+      }
+    },
+    yelp: {
+      type: new GraphQLList(RestaurantType),
+      args: { name: { type: GraphQLString }, zipcode: { type: GraphQLInt }},
+      resolve(parent, { name, zipcode }){
+        // const newyelp = new Promise(searchYelp(name, zipcode))
+
+        // newyelp.then(restul => restul);
+
+        const input = {
+          term: name,
+          location: zipcode,
+          limit: 20,
+        }
+      
+        return client
+          .search(input)
+          .then(result => {
+            console.log('in yelp controller')
+            return result.jsonBody.businesses;
+          })
+          .catch(e => console.log(e));
+    
       }
     }
   }
