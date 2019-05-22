@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production nodemon server/server.js",
-    "dev": "NODE_ENV=development webpack-dev-server --open & nodemon server/server.js"
+    "dev": "NODE_ENV=development nodemon server/server.js & webpack-dev-server --open"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "@babel/preset-react": "^7.0.0",
     "apollo-boost": "^0.3.1",
     "babel-loader": "^8.0.6",
+    "dotenv": "^8.0.0",
     "graphql": "^14.3.0",
     "nodemon": "^1.19.0",
     "react-apollo": "^2.5.5",
@@ -47,6 +48,7 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "style-loader": "^0.23.1",
+    "styled-components": "^4.2.0",
     "yelp-fusion": "^3.0.0"
   }
 }

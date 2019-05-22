@@ -46,13 +46,15 @@ dbController.addRestaurant = (req, res, next) => {
       res.locals.rest_id = result.rows[0]._id;
       return next();
     })
-    .catch(err => res.status(400).send());
+    .catch( (err) => {
+      console.log("error after liking",err);
+      res.status(400).send(err)
+    });
 }
 
 dbController.addToLikeTable = (req, res) => {
   const userID = req.cookies.userId;
   const restID = res.locals.rest_id;
-
   const addLike = `INSERT INTO likes (user_id, rest_id) VALUES ('${userID}', '${restID}')`
 
   pool.query(addLike)
