@@ -64,7 +64,6 @@ const SearchContainer = () => {
 
   const searchResultComponents = [];
   for (const restaurant of restaurantList) {
-    console.log('rest is ', restaurant)
     searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} addRestaurantMutation={AddRestaurantMutation} />)
   };
 

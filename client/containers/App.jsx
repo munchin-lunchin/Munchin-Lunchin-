@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import LoginContainer from './LoginContainer';
 import MainContainer from './MainContainer';
 import HeaderComponent from './../components/HeaderComponent';
-import { HashRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { isAuthenticated } from "./../services/authenticate";
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo'
+import SignupComponent from '../components/SignupComponent'
 
 //Setting up apollo client  - connection to graphql endpoint on server
 const client = new ApolloClient({
@@ -32,10 +33,10 @@ class App extends Component {
               render={() => (
                 isAuthenticated() ?
                   (<MainContainer />) :
-                  (<Redirect to="/" />)
+                  (<Redirect to={{pathname: "/signup", push: true}} />)
               )} />
             <Route exact path='/' component={LoginContainer} />
-
+            <Route path='/signup' component={SignupComponent} />
           </Router>
         </div>
       </ApolloProvider>

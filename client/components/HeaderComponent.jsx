@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 
 const HeaderComponent = () => (
   <div id="headerComp">
-    <h1>Feastin' With Frien'dz</h1>
+    <h1>Feasting With Friends</h1>
     <Link to="/main">
-      <button>Go to main page</button>
+      <button>Homepage!</button>
     </Link>
     <Link to="/">
-      <button>Go to login ('/') page</button>
+      <button>Login!</button>
+    </Link>
+    <Link to="/signup">
+      <button>Signup!</button>
     </Link>
   </div>
 )
