@@ -16,6 +16,33 @@ const Form = (props) => {
     canSubmit();
  }
  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const payload = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'username': username,
+        'password': password,
+      }),
+    }
+    console.log(JSON.stringify(payload));
+    fetch('http://localhost:3000/login', payload)
+    .then(res => res.json())
+    .then(res => {
+      console.log('Received a response from the server re: authentication:')
+      if (res.authenticated) {
+        console.log('The server authenticated the user!');
+        setRedirect(res2.authenticated);
+      } else {
+          console.log('User not authenticated.')
+      }
+    })
+    .catch(error => console.error('Error:', error));
+ }
+
  const canSubmit = () => {
    let fields = document.querySelectorAll('input');
    fields = [...fields];
@@ -23,35 +50,12 @@ const Form = (props) => {
  }
 
  return (
-   <form className={props.className}>
+   <form className={props.className} onSubmit={handleSubmit}>
     <FormLabel htmlFor="username">Username</FormLabel>
     <Input type='text' name='username' className='loginInputs' onChange={handleChange} onBlur={handleChange} required autoComplete="off"/>
     <FormLabel htmlFor="password">Password</FormLabel>
     <Input type='password' name='password' className='loginInputs' onChange={handleChange} onBlur={handleChange} required />
-    <Button type='submit' id='login' disabled={disabled} onClick={() => {
-      const data = {
-        username: document.querySelector('#username').value,
-        password: document.querySelector('#password').value
-      }
-      fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-      },
-        body: JSON.stringify(data)
-      })
-      .then(resp => resp.json())
-      .then(res2 => {
-        console.log('We have received a response from the server about authentication:')
-        if (res2.authenticated) {
-          console.log('The server authenticated the user!');
-          setRedirect(res2.authenticated);
-        } else {
-          console.log('User not authenticated.')
-        }
-      })
-      .catch(error => console.error('Error:', error));
-      }}>Log In</Button>
+    <Button type='submit' id='login' disabled={disabled}>Log In</Button>
   </form>
  );
 }
