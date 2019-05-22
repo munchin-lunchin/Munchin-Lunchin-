@@ -12,7 +12,6 @@ if (process.env.NODE_ENV === "production") {
       password: process.env.PROD_DB_PW,
       ssl: true,
       port: 5432,
-
   });
 } else {
     pool = new Pool({
