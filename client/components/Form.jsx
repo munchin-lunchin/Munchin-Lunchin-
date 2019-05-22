@@ -6,12 +6,18 @@ import Button from './Button'
 const Form = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const handleChange = (event) => {
+    const { target } = event;
+    if (target.name === 'username') setUsername(target.value);
+    else if (target.name === 'password') setPassword(target.value);
+    else (console.error('Unrecognized form field'));
+ }
  return (
    <form className={props.className}>
     <FormLabel htmlFor="username">Username</FormLabel>
-    <Input type='text' name='username' className='loginInputs' required />
+    <Input type='text' name='username' className='loginInputs' onChange={handleChange} onBlur={handleChange} required autoComplete="off"/>
     <FormLabel htmlFor="password">Password</FormLabel>
-    <Input type='password' name='password' className='loginInputs' required />
+    <Input type='password' name='password' className='loginInputs' onChange={handleChange} onBlur={handleChange} required />
     <Button type='submit' id='login' onClick={() => {
       const data = {
         username: document.querySelector('#username').value,
