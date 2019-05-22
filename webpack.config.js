@@ -3,7 +3,6 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: './client/index.js',
-  // target: 'node',
   module: {
     rules: [
       {
@@ -37,3 +36,4 @@ module.exports = {
     filename: 'bundle.js'
   }
 };
+
