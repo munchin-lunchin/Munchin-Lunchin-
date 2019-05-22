@@ -23,11 +23,11 @@ Table Schema:
 
 2. Restaurant Table: 
  - rating,
- - reviewCount,
- - yelpID,
+ - review_count,
+ - yelp_id,
  - name,
- - displayAddress,
- - imageURL,
+ - display_address,
+ - image_url,
  - url,
  - price,
  - latitude,
@@ -51,7 +51,7 @@ const UserType = new GraphQLObjectType({
       resolve(parent, args) {
         const getRestaurants = `
           SELECT r.* 
-          FROM likes l INNER JOIN restaurant r ON l.rest_id = r._id 
+          FROM likes l INNER JOIN restaurants r ON l.rest_id = r._id 
           WHERE l.user_id = ${parent._id} 
         `;
         return pool
@@ -71,11 +71,11 @@ const RestaurantType = new GraphQLObjectType({
   fields: () => ({
     _id: { type: GraphQLID },
     rating: { type: GraphQLFloat },
-    reviewCount: { type: GraphQLInt },
-    yelpID: { type: GraphQLString },
+    review_count: { type: GraphQLInt },
+    yelp_id: { type: GraphQLString },
     name: { type: GraphQLString },
-    displayAddress: { type: GraphQLString },
-    imageURL: { type: GraphQLString },
+    display_address: { type: GraphQLString },
+    image_url: { type: GraphQLString },
     url: { type: GraphQLString },
     price: { type: GraphQLString },
     latitude: { type: GraphQLFloat },
@@ -136,7 +136,7 @@ const Query = new GraphQLObjectType({
       resolve(parent, { userId }) {
         const getRestaurants = `
           SELECT r.*
-          FROM likes l INNER JOIN restaurant r ON r._id = l.rest_id
+          FROM likes l INNER JOIN restaurants r ON r._id = l.rest_id
           WHERE l.user_id = ${userId}
         `;
         return pool
@@ -165,7 +165,6 @@ const Query = new GraphQLObjectType({
         return client
           .search(input)
           .then(result => {
-            console.log('in yelp controller')
             return result.jsonBody.businesses;
           })
           .catch(e => console.log(e));
@@ -187,6 +186,7 @@ const Query = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
+
     addLike: {
       type: LikeType,
       args: {
@@ -255,42 +255,29 @@ const Mutation = new GraphQLObjectType({
       }
     },
 
-    // mutation {
-    //   addRestaurant(rating:5, reviewCount:10, yelpID:"GQLID", name:"GQLRestaurant", displayAddress:"GQL Street, NY", imageURL:"www.gql.com", url: "www.gql.com", price:"$$$$", latitude:20, longitude:50) {
-    //     rating
-    //     reviewCount
-    //     yelpID
-    //     name
-    //     displayAddress
-    //     imageURL
-    //     url
-    //     price
-    //     latitude
-    //     longitude
-    //   }
-    // }
+    
     addRestaurant: {
       type: RestaurantType,
       args: {
         rating: { type: GraphQLInt },
-        reviewCount: { type: GraphQLInt },
-        yelpID: { type: GraphQLString },
+        review_count: { type: GraphQLInt },
+        yelp_id: { type: GraphQLString },
         name: { type: GraphQLString },
-        displayAddress: { type: GraphQLString },
-        imageURL: { type: GraphQLString },
+        display_address: { type: GraphQLString },
+        image_url: { type: GraphQLString },
         url: { type: GraphQLString },
         price: { type: GraphQLString },
-        latitude: { type: GraphQLInt },
-        longitude: { type: GraphQLInt }
+        latitude: { type: GraphQLFloat },
+        longitude: { type: GraphQLFloat }
       },
       resolve(parent, args) {
         const {
           rating,
-          reviewCount,
-          yelpID,
+          review_count,
+          yelp_id,
           name,
-          displayAddress,
-          imageURL,
+          display_address,
+          image_url,
           url,
           price,
           latitude,
@@ -298,11 +285,11 @@ const Mutation = new GraphQLObjectType({
         } = args;
         const insertRestaurant = {
           text: `
-            INSERT INTO restaurant
-            (rating, "reviewCount", "yelpID", name, "displayAddress", "imageURL", url, price, latitude, longitude)
+            INSERT INTO restaurants
+            (rating, "review_count", "yelp_id", name, "display_address", "image_url", url, price, latitude, longitude)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *
           `,
-          values: [rating, reviewCount, yelpID, name, displayAddress, imageURL, url, price, latitude, longitude]
+          values: [rating, review_count, yelp_id, name, display_address, image_url, url, price, latitude, longitude]
         };
         return pool
           .query(insertRestaurant)
@@ -316,13 +303,13 @@ const Mutation = new GraphQLObjectType({
 
     // EDIT ME FOR WHAT FIELDS
     // mutation {
-    //   deleteRestaurant(yelpID: "GQLID") {
+    //   deleteRestaurant(yelp_id: "GQLID") {
     //     rating
-    //     reviewCount
-    //     yelpID
+    //     review_count
+    //     yelp_id
     //     name
-    //     displayAddress
-    //     imageURL
+    //     display_address
+    //     image_url
     //     url
     //     price
     //     latitude
@@ -332,17 +319,17 @@ const Mutation = new GraphQLObjectType({
     deleteRestaurant: {
       type: RestaurantType,
       args: {
-        yelpID: { type: GraphQLString }
+        yelp_id: { type: GraphQLString }
       },
-      resolve(parent, { yelpID }) {
+      resolve(parent, { yelp_id }) {
         let restaurant;
         return pool
-          .query(`SELECT * FROM restaurant WHERE "yelpID" = '${yelpID}'`)
+          .query(`SELECT * FROM restaurants WHERE "yelp_id" = '${yelp_id}'`)
           .then(rest => {
             restaurant = rest.rows[0];
             console.log('About to delete restaurant: \n', restaurant);
             return pool
-              .query(`DELETE FROM restaurant WHERE "yelpID" = '${yelpID}'`)
+              .query(`DELETE FROM restaurants WHERE "yelp_id" = '${yelp_id}'`)
               .then(() => {
                 console.log('Successfully deleted restaurant: \n', restaurant);
                 return restaurant;

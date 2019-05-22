@@ -16,11 +16,11 @@ const getLikesQuery = gql`
     username
     restaurants {
       name
-      displayAddress
+      display_address
       price
       rating
-      reviewCount
-      imageURL
+      review_count
+      image_url
       _id
     }
   }
@@ -37,6 +37,7 @@ const deleteLikeMutation = gql`
 `;
 
 const HistoryContainer = (props) => {
+  //console.log('There are my PROPS from History Ciontainer', props);
   // const [restaurantHistory, setRestaurantHistory] = useState([]);
   const getLikes = props.getLikesQuery;
   const deleteLikeMutation = props.deleteLikeMutation;
