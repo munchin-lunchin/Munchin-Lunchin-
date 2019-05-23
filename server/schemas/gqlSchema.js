@@ -142,7 +142,42 @@ const Query = new GraphQLObjectType({
         }
         return client
           .search(input)
-          .then(result => result.jsonBody.businesses)
+          .then(result => {
+            const queryResult = [];
+            for(let rest in result.jsonBody.businesses){
+      
+              const {
+                name,
+                rating,
+                review_count,
+                id,
+                location,
+                image_url,
+                url,
+                price,
+                coordinates
+              } = result.jsonBody.businesses[rest]
+
+              const restaurant = {
+                name,
+                rating,
+                review_count,
+                yelp_id: id,
+                display_address: location.address1 + ', ' + location.city + ', ' + location.state + ', ' + location.zip_code,
+                image_url,
+                url,
+                price,
+                latitude: coordinates.latitude,
+                longitude: coordinates.longitude
+              }
+
+              queryResult.push(restaurant)
+
+            }
+            console.log(result.jsonBody.businesses)
+            // console.log('result is ', queryResult);
+            return queryResult;
+          })
           .catch(e => console.error(e));
       }
     }
