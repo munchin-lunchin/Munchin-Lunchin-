@@ -6,7 +6,7 @@ const Button = styled.button`
     : '#F1ECE6')
 };
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     color: ${props => (!props.disabled
     ? '#F7F3EE'
     : '#A69E91')};
@@ -15,7 +15,7 @@ const Button = styled.button`
     font-weight: 600;
     padding: 1em;
     margin: 2em 0;
-    width: 18em;
+    width: 10em;
     box-shadow: ${props => (!props.disabled
     ? '0 10px 20px -10px rgba(44,42,33,0.38)'
     : 'none')};
