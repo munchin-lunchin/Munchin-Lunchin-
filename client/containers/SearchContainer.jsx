@@ -3,14 +3,14 @@ import RestaurantSearchResult from './../components/RestaurantSearchResult';
 
 const SearchContainer = () => {
   const [restaurantList, setRestaurantList] = useState([]);
-  const [name, setName] = useState('');
-  const [zip, setZip] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
 
   const handleChange = (event) => {
     const { target } = event;
-    if (target.name = 'restaurantName') setName(target.value);
-    else if (target.name = 'restaurantZip') setZip(target.value);
+    if (target.name === 'username') setUsername(target.value);
+    else if (target.name === 'password') setPassword(target.value);
     else (console.error('Unrecognized form field'));
     canSubmit();
   }
@@ -21,11 +21,11 @@ const SearchContainer = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
       body: JSON.stringify({
-        'name': name,
-        'zip': zip,
-      })
+        'name': username,
+        'zip': password,
+      }),
     }
     console.log(JSON.stringify(payload));
     fetch('http://localhost:3000/yelp', payload)
@@ -33,17 +33,6 @@ const SearchContainer = () => {
       .then(res => setRestaurantList(res));
   }
 
-  // const queryYelpAPI = () => {
-  //   const data = {
-  //     name: document.querySelector('#restaurantName').value,
-  //     zip: document.querySelector('#restaurantZip').value
-  //   }
-
-  //   fetch(`http://localhost:3000/yelp/restaurantName/${data.name}/restaurantZip/${data.zip}`,
-  //     { method: 'GET' })
-  //     .then(res => res.json())
-  //     .then(res => setRestaurantList(res));
-  // };
 
   function likeRestaurant(data) {
     console.log('yo data here:', data);
@@ -72,14 +61,16 @@ const SearchContainer = () => {
   }
 
   return (
-    <form onSubmit={queryYelpAPI}>
-      <input id="restaurantName" onChange={handleChange} onBlur={handleChange} required />
-      <input id="restaurantZip" onChange={handleChange} onBlur={handleChange} required />
-      <Button type='submit' id='login' disabled={disabled}>Search</Button>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type='text' name='username' className='loginInputs' onChange={handleChange} onBlur={handleChange} required autoComplete="off"/>
+        <input type='password' name='password' className='loginInputs' onChange={handleChange} onBlur={handleChange} required />
+        <button type='submit' id='login' disabled={disabled}>Log In</button>
+      </form>
       <div id="searchContainer">
         {searchResultComponents}
       </div>
-    </form>
+    </div>
   );
 };
 
