@@ -60,6 +60,10 @@ article svg:last-child:active {
   transform: scale(0.95);
 }
 
+#MainContainer form svg {
+  margin-left: auto;
+  padding-right: 0.75em;
+}
 /* article svg:last-of-type {
   margin-left: auto;
 } */

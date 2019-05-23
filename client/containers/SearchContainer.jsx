@@ -69,7 +69,7 @@ const SearchContainer = () => {
         <Zip type='text' name='zip' placeholder="Zip Code" onfocus="this.placeholder= ''" onChange={handleChange} onBlur={handleChange} required />
         {/* <button type='submit' id='login' disabled={disabled}>Search</button> */}
 
-        <svg width="20px" height="20px" viewBox="0 0 20 20">
+        <svg onClick={handleSubmit} width="20px" height="20px" viewBox="0 0 20 20">
           <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Search-Icon" fill="#A69E91" fill-rule="nonzero">
               <g id="search">
