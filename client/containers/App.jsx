@@ -7,7 +7,6 @@ import { isAuthenticated } from "./../services/authenticate";
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-
 //Setting up apollo client  - connection to graphql endpoint on server
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql'
@@ -35,6 +34,7 @@ class App extends Component {
                   (<MainContainer />) :
                   <HeaderComponent />
                   (<Redirect to="/" />)
+                 
               )} />
             
             <Route exact path='/' component={LoginContainer} />
