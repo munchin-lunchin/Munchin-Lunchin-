@@ -3,12 +3,9 @@ const fetch = require('node-fetch');
 const searchLimit = 18;
 
 const yelpGQLController = {};
-
-console.log('APIKEY: ', APIKEY);
-
 yelpGQLController.searchYelpGQL = (req, res) => {
   const { name, zip } = req.params;
-  console.log(req.params);
+  // console.log(req.params);
   if (!name || !zip) res.json({});
 
   const searchInput = `{
