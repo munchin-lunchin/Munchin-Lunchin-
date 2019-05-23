@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 
 const HeaderComponent = () => (
       <div id="headerComp">
-        <h1>Lunchin'</h1>
         <Link to="/main">
-          <button>Go to main page</button>
+          <Logo>Lunchin'</Logo>
         </Link>
         <Link to="/">
           <button>Go to login ('/') page</button>

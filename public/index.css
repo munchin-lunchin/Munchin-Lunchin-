@@ -7,12 +7,6 @@ body {
   padding: 0px;
 }
 
-#headerComp {
-  background: linear-gradient(to bottom left, lightblue, darkblue);
-  color: silver;
-  padding: 10px;
-  font-family: 'Baloo Bhai', cursive;
-}
 
 #mainContainer {
   /* border: 1px solid red; */
