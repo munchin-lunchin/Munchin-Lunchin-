@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import RestaurantSearchResult from './../components/RestaurantSearchResult';
+import Form from './SearchFormStyle';
+import Zip from './ZipInput';
+import Name from './NameInput';
 
 const SearchContainer = () => {
   const [restaurantList, setRestaurantList] = useState([]);
@@ -61,11 +64,11 @@ const SearchContainer = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input type='text' name='name' className='loginInputs' onChange={handleChange} onBlur={handleChange} required autoComplete="off" />
-        <input type='text' name='zip' className='loginInputs' onChange={handleChange} onBlur={handleChange} required />
-        <button type='submit' id='login' disabled={disabled}>Log In</button>
-      </form>
+      <Form onSubmit={handleSubmit}>
+        <Name type='text' name='name' placeholder="Location" onfocus="this.placeholder= ''" onChange={handleChange} onBlur={handleChange} required autoComplete="off" />
+        <Zip type='text' name='zip' placeholder="Zip Code" onfocus="this.placeholder= ''" onChange={handleChange} onBlur={handleChange} required />
+        <button type='submit' id='login' disabled={disabled}>Search</button>
+      </Form>
       <div id="searchContainer">
         {searchResultComponents}
       </div>
