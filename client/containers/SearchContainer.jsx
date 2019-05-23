@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RestaurantSearchResultComponent from './../components/RestaurantSearchResultComponent';
+import RestaurantSearchResult from './../components/RestaurantSearchResult';
 
 const SearchContainer = () => {
   const [restaurantList, setRestaurantList] = useState([]);
@@ -33,8 +33,7 @@ const SearchContainer = () => {
 
   const searchResultComponents = [];
   for (const restaurant of restaurantList) {
-    // console.log('restaurant: ', restaurant);
-    searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
+    searchResultComponents.push(<RestaurantSearchResult key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
   };
 
   return (

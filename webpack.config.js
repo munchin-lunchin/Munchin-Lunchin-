@@ -16,8 +16,8 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
-      }
-    ]
+      },
+    ],
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -29,10 +29,10 @@ module.exports = {
     port: 8080,
     proxy: {
       '/home': 'http://localhost:3000',
-    }
+    },
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
 };
