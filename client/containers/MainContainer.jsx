@@ -1,12 +1,12 @@
 import React from 'react';
 import SearchContainer from './SearchContainer';
 import HistoryContainer from './HistoryContainer';
-import StyledHeader from '../components/StyledHeader';
+import HeaderComponent from '../components/HeaderComponent';
 
 
 const MainContainer = () => (
   <div id="MainContainer" >
-    <StyledHeader/>
+    <HeaderComponent />
     <SearchContainer />
     <HistoryContainer />
   </div >

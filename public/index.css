@@ -11,7 +11,7 @@ body {
 #mainContainer {
   /* border: 1px solid red; */
   display: grid;
-  grid-template-columns: 66% 33%;
+  grid-template-columns: repeat(2,2/3fr,1/3fr);
   margin-top: 30px;
   margin-bottom: 100px;
   margin-left: 10px;
