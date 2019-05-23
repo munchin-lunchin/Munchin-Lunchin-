@@ -1,8 +1,9 @@
 import { gql } from 'apollo-boost'
 import { graphql, compose } from 'react-apollo'
-import RestaurantComponent from '../components/RestaurantComponent'
+// import RestaurantComponent from '../components/RestaurantComponent'
 import React from 'react';
 import { cookieParser } from './../services/authenticate';
+import StyledRestaurantCard from '../components/StyledRestaurantCard';
 
 
 //Graphql query for restaurants our user has liked previously.
@@ -42,7 +43,6 @@ const HistoryContainer = (props) => {
   // const [restaurantHistory, setRestaurantHistory] = useState([]);
   const getLikes = props.getLikesQuery;
   const deleteLikeMutation = props.deleteLikeMutation;
-  //no idea why this function errors out in line 47 but we added a refresh button in 48 to resolve
   const restaurantMapping = () => {
     if (getLikes.loading) {
       return <div>Loading</div>
@@ -50,7 +50,7 @@ const HistoryContainer = (props) => {
       return <button onClick={() => location.reload()}>See History!</button>
     } else {
       return getLikes.user.restaurants.map((rest) => (
-        <RestaurantComponent
+        <StyledRestaurantCard
           {...rest}
           deleteLikeMutation={deleteLikeMutation}
           getLikesQuery={getLikesQuery}
@@ -63,7 +63,7 @@ const HistoryContainer = (props) => {
 
   return (
     <div>
-      <h2> Restaurants You've Liked! </h2>
+      <h2>Restaurants you’ve liked</h2>
       {restaurantMapping()}
     </div>
   )
