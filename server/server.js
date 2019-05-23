@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
-const { searchYelp } = require('./controllers/yelpController');
 const { searchYelpGQL } = require('./controllers/yelpGQLController');
 const { addRestaurant, addToLikeTable, searchForRestaurant } = require('./controllers/dbController');
 
@@ -40,7 +39,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //route to yelp API
-// app.get('/yelp/restaurantName/:name/restaurantZip/:zip', searchYelp);
 app.get('/yelp/restaurantName/:name/restaurantZip/:zip', searchYelpGQL);
 
 //route to add liked restaurant
@@ -48,4 +46,11 @@ app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
 
 app.post('/login', verifyUser, setCookie);
 
+//added a catch all URL endpoint to be able to render the main page
+app.get('/*' ,(req, res) => {
+  res.sendFile(homeURL)
+})
+
 app.listen(3000, () => 'Listening on port 3000');
+
+module.exports = app;
