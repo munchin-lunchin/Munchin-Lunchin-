@@ -22,6 +22,8 @@ const getLikesQuery = gql`
       reviewCount
       imageURL
       _id
+      latitude
+      longitude
     }
   }
 }
