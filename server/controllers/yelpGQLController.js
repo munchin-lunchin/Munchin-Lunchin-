@@ -4,11 +4,8 @@ const searchLimit = 18;
 
 const yelpGQLController = {};
 
-console.log('APIKEY: ', APIKEY);
-
 yelpGQLController.searchYelpGQL = (req, res) => {
   const { name, zip } = req.params;
-  console.log(req.params);
   if (!name || !zip) res.json({});
 
   const searchInput = `{
@@ -53,7 +50,7 @@ yelpGQLController.searchYelpGQL = (req, res) => {
     .then(data => res.send(data.data.search.business))
     .catch(err => {
       console.log('err: ', err);
-      res.status(400).send(err)
+      res.status(500).send(err)
     });
 }
 
