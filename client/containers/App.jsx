@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
   }
 
-  render () {
+  render() {
     return (
       //Apollo wrapper injects data from the server into the application
       <ApolloProvider client={client}>
@@ -26,7 +26,6 @@ class App extends Component {
           {/* For our React Router, this is the 'Hash History' approach from the excellent
               Stack Overflow here: https://stackoverflow.com/questions/27928372/ */}
           <Router >
-         
             <Route
               path="/main"
               render={() => (
@@ -34,9 +33,7 @@ class App extends Component {
                   (<MainContainer />) :
                   <HeaderComponent />
                   (<Redirect to="/" />)
-                 
               )} />
-            
             <Route exact path='/' component={LoginContainer} />
           </Router>
         </div>
