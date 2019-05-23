@@ -6,7 +6,7 @@ const MainContainer = () => (
   <div id="MainContainer" >
     <SearchContainer />
     <HistoryContainer />
-  </div >
+  </div>
 );
 
 export default MainContainer;

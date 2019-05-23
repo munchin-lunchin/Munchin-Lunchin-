@@ -4,7 +4,6 @@ import RestaurantComponent from '../components/RestaurantComponent'
 import React from 'react';
 import { joesFrontEndCookieParser } from './../services/authenticate';
 
-
 //Graphql query for restaurants our user has liked previously.
 const myCookies = joesFrontEndCookieParser(document.cookie);
 const myUserId = myCookies.userId;
@@ -44,8 +43,8 @@ const HistoryContainer = (props) => {
       return <div>Loading</div>
     } else if (getLikes.error) {
       return <button onClick={() => location.reload()}>See History!</button>
-    // } else if (!getLikes.user.restaurant) {
-    //   return <div>Like Some Restaurants</div>
+      // } else if (!getLikes.user.restaurant) {
+      //   return <div>Like Some Restaurants</div>
     } else {
       return getLikes.user.restaurants.map((rest) => (
         <RestaurantComponent
@@ -61,7 +60,7 @@ const HistoryContainer = (props) => {
 
   return (
     <div>
-      <h2> Restaurants You've Liked! </h2>
+      <h2>Restaurants You've Liked!</h2>
       {restaurantMapping()}
     </div>
   )
