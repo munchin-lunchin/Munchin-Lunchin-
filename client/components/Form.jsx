@@ -34,15 +34,10 @@ const Form = (props) => {
     fetch('http://localhost:3000/login', payload)
       .then(res => res.json())
       .then(res => {
-        console.log('Received a response from the server re: authentication:')
         if (res.authenticated) {
-          console.log('The server authenticated the user!');
           props.setRedirect(res.authenticated);
         } else {
-          console.log('User not authenticated.');
           invalidUser();
-          // console.log('CREDENTIALS', invalidCredentials)
-          console.log('INVALID CREDENTIALS', invalidCredentials)
         }
       })
       .catch(error => console.error('Error:', error));
@@ -56,7 +51,6 @@ const Form = (props) => {
 
   const invalidUser = () => {
     setCredentials(true);
-    console.log('INVALID CREDENTIALS', invalidCredentials)
   }
 
   return (
