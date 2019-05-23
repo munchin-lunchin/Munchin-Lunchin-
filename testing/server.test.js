@@ -1,12 +1,11 @@
 const request = require('supertest');
-const server = 'http://localhost:3000'
 const app = require('../server/server');
 
 
 describe('verifyUser', () => {
   describe('/', () => {
     describe('/login', () => {
-      it('responds with 200 status and text/html content type', () => {
+      it('responds with 200 status and application/json', () => {
         return request(app)
           .post('/login')
           .expect('Content-Type', /application\/json/)
@@ -16,22 +15,29 @@ describe('verifyUser', () => {
   });
 });
 
-describe('searchYelp', () => {
-    describe('GET', () => {
-      it('responds with an empty json object if name/zip are undefined', () => {
+describe('GET request to yelp API', () => {
+    describe('yelpController.searchYelp', () => {
+      it('responds with a 404 if name param is missing in request', () => {
         return request(app)
           .get(`/yelp/restaurantName//restaurantZip/10021`)
           .expect(404);
       })
     });
 
-      it('responds with an object containing all restaurants and locations', () => {
+    describe('yelpController.searchYelp', () => {
+      it('responds with a 404 if zip param is missing in request', () => {
         return request(app)
-          .get('/yelp/restaurantName/chipotle/restaurantZip/10021')
-          .expect('Content-Type', 'application/json; charset=utf-8')
-          .expect(200)
-          .then(data => {
-            expect(data.length > 1);
-          });
+          .get(`/yelp/restaurantName/Chipotle/restaurantZip/`)
+          .expect(404);
+      })
+    });
+
+  it('responds with 200 status code, and a record containing the name they searched for', () => {
+    return request(app)
+      .get('/yelp/restaurantName/chipotle/restaurantZip/10021')
+      .expect(200)
+      .then(data => {
+        expect(data.body[0].name).toMatch(/chipotle/i);
       });
+  });
 })
