@@ -7,8 +7,6 @@ import { joesFrontEndCookieParser } from '../services/authenticate';
 const myCookies = joesFrontEndCookieParser(document.cookie);
 const myUserId = myCookies.userId;
 
-console.log('my user ID ', myUserId)
-
 const AddRestaurantMutation = gql`
   mutation ($rating: Float!, $review_count: Int!, $yelp_id: String!, $name: String!, $display_address: String!, $image_url: String!, $url: String!, $price: String!, $latitude: Float!, $longitude: Float!, $user_id: Int!){
     addRestaurant(
@@ -39,8 +37,7 @@ const AddRestaurantMutation = gql`
 `
 
 const RestaurantSearchResultComponent = (props) => {
-  props.data[user_id] = user_id;
-  console.log(' props ', props.data)
+  props.data.user_id = parseInt(myUserId);
   return (
     <div className="searchResult">
       <h4>{props.data.name}</h4>

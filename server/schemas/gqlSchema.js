@@ -281,7 +281,7 @@ const Mutation = new GraphQLObjectType({
           longitude,
           user_id
         } = args;
-        console.log(' in the resolve!! ', args)
+        console.log(' in the resolve!! ', user_id, args)
         const insertRestaurant = {
           text: `
             INSERT INTO restaurants (
@@ -313,7 +313,12 @@ const Mutation = new GraphQLObjectType({
 
        return pool
           .query(insertRestaurant)
-          .then(restaurant => restaurant.rows[0])
+          .then(restaurant => {
+            return pool
+              .query(`INSERT INTO likes (user_id, rest_id) VALUES(${user_id}, ${restaurant.rows[0]._id});`)
+              .then(result => result.rows[0])
+              .catch(err => console.log('error!!', err))
+          })
           .catch(err => console.error('Error during addRestaurant GraphQL mutation\n', err));
       }
     },
