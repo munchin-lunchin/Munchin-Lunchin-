@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { Redirect } from "react-router-dom";
 
+
 function LoginContainer() {
   const [redirect, setRedirect] = useState(false);
-
   return (
     <div id="loginContainer">
       <div><strong>Login</strong></div>
-      <input id='username' placeholder='Username' className='loginInputs' />
-      <input id='password' placeholder='Password' className='loginInputs' />
+      <input
+        id='username'
+        placeholder='Username'
+        className='loginInputs'
+      />
+      <input
+        type='password'
+        id='password'
+        placeholder='Password'
+        className='loginInputs'
+      />
       <button id='login' onClick={() => {
         const data = {
           username: document.querySelector('#username').value,
