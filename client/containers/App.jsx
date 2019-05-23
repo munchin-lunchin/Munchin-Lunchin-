@@ -10,17 +10,18 @@ class App extends Component {
     super(props);
   }
 
-  render () {
+  render() {
     return (
       <div>
           <Route
               path="/main"
               render={() => (
+                // Set authenticated to true for testing purposes. Change to isAuthenticated() for production
                 true ?
                   (<MainContainer />) :
                   (<Redirect to="/" />)
               )} />
-          <Route path="/" exact component={LoginContainer} />
+          <Route exact path="/" component={LoginContainer} />
       </div>
     );
   }

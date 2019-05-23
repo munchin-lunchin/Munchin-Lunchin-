@@ -12,13 +12,8 @@ const SearchContainer = () => {
 
     fetch(`http://localhost:3000/yelp/restaurantName/${data.name}/restaurantZip/${data.zip}`,
       { method: 'GET' })
-      .then(resp => {
-        console.log('resp', resp);
-        return resp.json()
-      }
-      ).then(res2 => {
-        setRestaurantList(res2);
-      });
+      .then(res => res.json())
+      .then(res => setRestaurantList(res));
   };
 
   function likeRestaurant(data) {
@@ -37,8 +32,8 @@ const SearchContainer = () => {
   };
 
   const searchResultComponents = [];
-  console.log(restaurantList)
   for (const restaurant of restaurantList) {
+    // console.log('restaurant: ', restaurant);
     searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
   };
 
