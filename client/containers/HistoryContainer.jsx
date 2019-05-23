@@ -45,7 +45,7 @@ const HistoryContainer = (props) => {
     if (getLikes.loading) {
       return <div>Loading</div>
     } else if (getLikes.error) {
-      return <button onClick={() => location.reload()}>See History!</button>
+       location.reload()
     } else {
       return getLikes.user.restaurants.map((rest) => (
         <RestaurantComponent
