@@ -29,6 +29,7 @@ class App extends Component {
             <Route
               path="/main"
               render={() => (
+                // Set authenticated to true for testing purposes. Change to isAuthenticated() for production
                 true ?
                   (<MainContainer />) :
                   <HeaderComponent />
