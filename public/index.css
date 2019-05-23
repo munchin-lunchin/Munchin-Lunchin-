@@ -7,23 +7,11 @@ body {
   padding: 0px;
 }
 
-#headerComp {
-  background: linear-gradient(to bottom left, lightblue, darkblue);
-  color: silver;
-  padding: 10px;
-  font-family: 'Baloo Bhai', cursive;
-}
-
-#loginContainer {
-  margin-top: 30px;
-  margin-left: 10px;
-  font-family: 'Montserrat', sans-serif;
-}
 
 #mainContainer {
   /* border: 1px solid red; */
   display: grid;
-  grid-template-columns: 66% 33%;
+  grid-template-columns: repeat(2,2/3fr,1/3fr);
   margin-top: 30px;
   margin-bottom: 100px;
   margin-left: 10px;

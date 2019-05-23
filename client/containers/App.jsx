@@ -5,7 +5,7 @@ import HeaderComponent from './../components/HeaderComponent';
 import { HashRouter as Router, Route, Redirect } from "react-router-dom";
 import { isAuthenticated } from "./../services/authenticate";
 import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider } from 'react-apollo';
 
 //Setting up apollo client  - connection to graphql endpoint on server
 const client = new ApolloClient({
@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
   }
 
-  render () {
+  render() {
     return (
       //Apollo wrapper injects data from the server into the application
       <ApolloProvider client={client}>
@@ -26,16 +26,16 @@ class App extends Component {
           {/* For our React Router, this is the 'Hash History' approach from the excellent
               Stack Overflow here: https://stackoverflow.com/questions/27928372/ */}
           <Router >
-            <HeaderComponent />
             <Route
               path="/main"
               render={() => (
-                isAuthenticated() ?
+                // Set authenticated to true for testing purposes. Change to isAuthenticated() for production
+                true ?
                   (<MainContainer />) :
+                  <HeaderComponent />
                   (<Redirect to="/" />)
               )} />
             <Route exact path='/' component={LoginContainer} />
-
           </Router>
         </div>
       </ApolloProvider>
