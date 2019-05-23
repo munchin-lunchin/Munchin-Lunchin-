@@ -8,6 +8,7 @@ const RestaurantSearchResultComponent = ({ data, addRestaurantMutation}) => {
       <h6>Address: {data.display_address}</h6>
       <h6>Price: {data.price}</h6>
       <h6>Rating: {data.rating}</h6>
+      <h6>Review count: {data.review_count}</h6>
       <button onClick={() => {
         addRestaurantMutation({
           variables: data
