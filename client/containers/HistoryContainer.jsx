@@ -47,6 +47,8 @@ const HistoryContainer = (props) => {
     // } else if (!getLikes.user.restaurant) {
     //   return <div>Like Some Restaurants</div>
     } else {
+      console.log(' delete ', deleteLikeMutation)
+      console.log(' rest liked ', getLikes.user.restaurants)
       return getLikes.user.restaurants.map((rest) => (
         <RestaurantComponent
           {...rest}
