@@ -5,7 +5,7 @@ const searchLimit = 18;
 const yelpGQLController = {};
 
 yelpGQLController.searchYelpGQL = (req, res) => {
-  const { name, zip } = req.params;
+  const { name, zip } = req.body;
   if (!name || !zip) res.json({});
 
   const searchInput = `{
