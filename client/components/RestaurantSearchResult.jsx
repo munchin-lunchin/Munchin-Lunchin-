@@ -1,7 +1,5 @@
 import React from 'react';
-// import Result from '../containers/Result';
 import LocationContainer from '../containers/LocationContainer';
-// import Icon from '../components/Icon';
 import Address from '../components/Address';
 import Name from '../components/Name';
 import { removeClientSetsFromDocument } from 'apollo-utilities';
@@ -44,12 +42,6 @@ const RestaurantSearchResult = (props) => {
       </g>
     </svg>
   </article>
-    // <div className="searchResult">
-    //   <h4>{props.data.name}</h4>
-    //   <h6>{props.data.location.display_address[0]}<br />
-    //     {props.data.location.display_address[1]}</h6>
-    //   <button onClick={() => { props.likeRestaurant(props.data) }}> Like </button>
-    // </div>
   );
 }
 
