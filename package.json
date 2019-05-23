@@ -36,6 +36,7 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/runtime": "^7.4.5",
+    "algoliasearch": "^3.33.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",

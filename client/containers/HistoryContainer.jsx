@@ -8,8 +8,6 @@ import { joesFrontEndCookieParser } from './../services/authenticate';
 //Graphql query for restaurants our user has liked previously.
 const myCookies = joesFrontEndCookieParser(document.cookie);
 const myUserId = myCookies.userId;
-console.log('My cookies', myCookies);
-console.log('My user ID:', myUserId);
 const getLikesQuery = gql`
 {
   user(_id: ${myUserId}) {
@@ -37,8 +35,6 @@ const deleteLikeMutation = gql`
 `;
 
 const HistoryContainer = (props) => {
-  //console.log('There are my PROPS from History Ciontainer', props);
-  // const [restaurantHistory, setRestaurantHistory] = useState([]);
   const getLikes = props.getLikesQuery;
   const deleteLikeMutation = props.deleteLikeMutation;
 

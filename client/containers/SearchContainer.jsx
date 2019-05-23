@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import RestaurantSearchResultComponent from './../components/RestaurantSearchResultComponent';
 import { gql } from 'apollo-boost';
 import { graphql, compose, ApolloConsumer } from 'react-apollo';
+import algoliasearch from 'algoliasearch';
 
+const client = algoliasearch('54V98YN658', 'd4fd1c2bd8718edd438f6fc30b0e8c30')
+const index = client.initIndex('yelp')
 
 const SearchRestaurantsQuery = gql`
-  query yelp( 
+  query yelp(
         $name: String!,
         $zipcode: Int!
       ){
@@ -61,7 +64,6 @@ const SearchContainer = () => {
 
   const searchResultComponents = [];
   for (const restaurant of restaurantList) {
-    console.log('rest is ', restaurant)
     searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} addRestaurantMutation={AddRestaurantMutation} />)
   };
 
@@ -78,6 +80,10 @@ const SearchContainer = () => {
                   variables: { name: restName, zipcode: parseInt(zipcode) }
                 });
                 setRestaurantList(data.yelp);
+                index.addObjects(data.yelp, (err, content) => {
+                  if (err) return console.error(err)
+                  console.log(content)
+                })
                 console.log('data is ', data.yelp);
               }}> Search for restaurants </button>
             <div id="searchContainer">

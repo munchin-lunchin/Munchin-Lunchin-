@@ -6,6 +6,7 @@ function LoginContainer() {
 
   return (
     <div id="loginContainer">
+      <div><strong>Login</strong></div>
       <input id='username' placeholder='Username' className='loginInputs' />
       <input id='password' placeholder='Password' className='loginInputs' />
       <button id='login' onClick={() => {
@@ -23,7 +24,6 @@ function LoginContainer() {
           if (res2.authenticated) {
             setRedirect(res2.authenticated);
           } else {
-            console.log('User was not authenticated.')
           }
         })
         .catch(error => console.error('Error:', error)); }}>

@@ -5,10 +5,10 @@ const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
 const { searchYelp } = require('./controllers/yelpController');
-const { addRestaurant, addToLikeTable, searchForRestaurant } = require('./controllers/dbController');
+const { addRestaurant, addToLikeTable, searchForRestaurant, checkUser, addUser } = require('./controllers/dbController');
 const dotenv = require('dotenv');
-
 dotenv.config();
+
 
 const app = express();
 const homeURL = path.join(__dirname, '../public/index.html');
@@ -19,11 +19,12 @@ const homeURL = path.join(__dirname, '../public/index.html');
  This route will be an endpoint to interact with GraphQL data ('supercharged' endpoint to handle queries)
  */
 const graphqlHTTP = require('express-graphql');
-const schema = require('./schemas/gqlSchema.js')
+const schema = require('./schemas/gqlSchema.js');
 app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
 }));
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -46,4 +47,12 @@ app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
 
 app.post('/login', verifyUser, setCookie);
 
+app.post('/signup', checkUser, addUser, setCookie)
+
+app.get('/*', function(req, res) {
+  res.sendFile(homeURL)
+})
+
+
 app.listen(3000, () => 'Listening on port 3000');
+

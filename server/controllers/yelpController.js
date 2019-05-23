@@ -11,8 +11,11 @@ yelpController.searchYelp = (name, zip) => {
     limit: 20,
   }
 
-  client.search(input)
-    .then(result => result.jsonBody.businesses)
+  client
+    .search(input)
+    .then(result => {
+      return result.jsonBody.businesses;
+    })
     .catch(e => console.error(e));
 }
 
