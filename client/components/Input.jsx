@@ -22,6 +22,3 @@ const Input = styled.input`
   `;
 
 export default Input;
-// color: ${props => (!props.disabled
-//   ? '#F7F3EE'
-//   : '#A69E91')};
