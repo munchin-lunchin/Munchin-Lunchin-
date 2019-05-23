@@ -3,6 +3,8 @@ const pool = require('../database/psqlDb.js');
 const dbController = {};
 
 dbController.searchForRestaurant = (req, res, next) => {
+  console.log('heyyyyy im working!')
+  console.log('req.body.data: ', req.body.data);
   const { url } = req.body.data;
   const find = `SELECT _id FROM restaurant WHERE URL='${url}'`
   pool.query(find)
