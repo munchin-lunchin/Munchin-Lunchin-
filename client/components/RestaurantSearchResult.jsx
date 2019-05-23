@@ -5,9 +5,6 @@ import Name from '../components/Name';
 import { removeClientSetsFromDocument } from 'apollo-utilities';
 
 const RestaurantSearchResult = (props) => {
-  console.log('props: ', props);
-
-  console.log('props.data: ', props.data);
   return (
     <article style={{
       display: `flex`,
