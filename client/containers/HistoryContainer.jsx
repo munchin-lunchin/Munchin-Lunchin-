@@ -2,11 +2,11 @@ import { gql } from 'apollo-boost'
 import { graphql, compose } from 'react-apollo'
 import RestaurantComponent from '../components/RestaurantComponent'
 import React from 'react';
-import { joesFrontEndCookieParser } from './../services/authenticate';
+import { cookieParser } from './../services/authenticate';
 
 
 //Graphql query for restaurants our user has liked previously.
-const myCookies = joesFrontEndCookieParser(document.cookie);
+const myCookies = cookieParser(document.cookie);
 const myUserId = myCookies.userId;
 console.log('My cookies', myCookies);
 console.log('My user ID:', myUserId);
