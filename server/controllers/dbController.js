@@ -41,7 +41,6 @@ dbController.addRestaurant = (req, res, next) => {
   //add query to database
   pool.query(add)
     .then(result => {
-      // console.log('result pool.query(add): ', result);
       console.log(`successfully added ${name} to db`);
       res.locals.rest_id = result.rows[0]._id;
       return next();
