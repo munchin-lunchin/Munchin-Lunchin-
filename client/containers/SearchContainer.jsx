@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import RestaurantSearchResultComponent from './../components/RestaurantSearchResultComponent';
 import { gql } from 'apollo-boost';
-import Hit from '../components/Hit';
+import Hit from '../components/HitComponent';
 import algoliasearch from 'algoliasearch';
 import {
   graphql,
@@ -68,14 +68,19 @@ const AddRestaurantMutation = gql`
 `
 
 const SearchContainer = () => {
-
   const [restaurantList, setRestaurantList] = useState([]);
   const [zipcode, setZipCode] = useState('');
   const [restName, setRestName] = useState('');
 
   const searchResultComponents = [];
   for (const restaurant of restaurantList) {
-    searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} addRestaurantMutation={AddRestaurantMutation} />)
+    searchResultComponents.push(
+      <RestaurantSearchResultComponent
+        key={restaurant.id}
+        data={restaurant}
+        addRestaurantMutation={AddRestaurantMutation}
+      />
+    )
   };
 
   return (
@@ -86,20 +91,20 @@ const SearchContainer = () => {
           Restaurant Name: <input id="whereYouAteYoFoodsInput" onChange={(e) => setRestName(e.target.value)}></input>
           Zipcode: <input id="zipcodeOfWhereYouEatYoFoodsInput" onChange={(e) => setZipCode(e.target.value)}></input>
 
-          <button id="yelpSearchButton" onClick={async () => {
-            const { data } = await client.query({
-              query: query1,
-              variables: { name: restName, zipcode: parseInt(zipcode) }
-            });
-            setRestaurantList(data.yelp);
-            index.addObjects(data.yelp, (err, content) => {
-              if (err) return console.error(err)
-              console.log(content)
-            })
-            console.log('data is ', data.yelp);
-          }}>
+          <button
+            id="yelpSearchButton"
+            onClick={async () => {
+              const { data } = await client.query({
+                query: query1,
+                variables: { name: restName, zipcode: parseInt(zipcode) }
+              });
+              setRestaurantList(data.yelp);
+              index.addObjects(data.yelp, (err) => {
+                if (err) return console.error(err)
+              })
+            }}>
             Search for restaurants
-            </button>
+          </button>
 
           <div id="searchContainer">
             {searchResultComponents}
