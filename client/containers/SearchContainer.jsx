@@ -1,59 +1,133 @@
 import React, { useState } from 'react';
 import RestaurantSearchResultComponent from './../components/RestaurantSearchResultComponent';
+import { gql } from 'apollo-boost';
+import Hit from '../components/HitComponent';
+import algoliasearch from 'algoliasearch';
+import {
+  graphql,
+  compose,
+  ApolloConsumer
+} from 'react-apollo';
+import {
+  InstantSearch,
+  Hits,
+  SearchBox,
+} from 'react-instantsearch-dom';
+
+const client = algoliasearch('54V98YN658', 'd4fd1c2bd8718edd438f6fc30b0e8c30');
+const searchClient = algoliasearch('54V98YN658', '488d342c46cad2e1015749231a63eaf3');
+const index = client.initIndex('yelp')
+
+const SearchRestaurantsQuery = gql`
+  query yelp(
+        $name: String!,
+        $zipcode: Int!
+      ){
+        yelp (name: $name, zipcode: $zipcode) {
+          rating
+          review_count
+          yelp_id
+          name
+          display_address
+          image_url
+          url
+          price
+          latitude
+          longitude
+        }
+  }`;
+
+const query1 = SearchRestaurantsQuery;
+
+const AddRestaurantMutation = gql`
+  mutation {
+    addRestaurant(
+        rating: $rating,
+        review_count: $review_count,
+        yelp_id: $yelp_id,
+        name: $name,
+        display_address: $display_address,
+        image_url: $image_url,
+        url: $url,
+        price: $price,
+        latitude: $latitude,
+        longitude: $longitude
+      ) {
+      rating
+      review_count
+      yelp_id
+      name
+      display_address
+      image_url
+      url
+      price
+      latitude
+      longitude
+    }
+  }
+`
 
 const SearchContainer = () => {
   const [restaurantList, setRestaurantList] = useState([]);
-
-  const queryYelpAPI = () => {
-    const data = {
-      name: document.querySelector('#whereYouAteYoFoodsInput').value,
-      zip: document.querySelector('#zipcodeOfWhereYouEatYoFoodsInput').value
-    }
-
-    fetch(`http://localhost:3000/yelp/restaurantName/${data.name}/restaurantZip/${data.zip}`,
-      { method: 'GET' })
-      .then(resp => {
-        console.log('resp', resp);
-        return resp.json()
-      }
-      ).then(res2 => {
-        setRestaurantList(res2);
-      });
-  };
-
-  function likeRestaurant(data) {
-    console.log('yo data here:', data);
-    fetch('http://localhost:3000/likes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }).then(resp => {
-      console.log('We have received a response from the server about liking a restaurant:');
-      console.log(resp);
-      if (resp.status === 200) setRestaurantList([]);
-      else console.log('There was an error!');
-    }).then(() => location.reload())
-      .catch(err => console.error(err));
-  };
+  const [zipcode, setZipCode] = useState('');
+  const [restName, setRestName] = useState('');
 
   const searchResultComponents = [];
-  console.log(restaurantList)
   for (const restaurant of restaurantList) {
-    searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
+    searchResultComponents.push(
+      <RestaurantSearchResultComponent
+        key={restaurant.id}
+        data={restaurant}
+        addRestaurantMutation={AddRestaurantMutation}
+      />
+    )
   };
 
   return (
-    <div>
-      <h1> Search</h1>
-      Restaurant Name: <input id="whereYouAteYoFoodsInput"></input>
-      Zipcode: <input id="zipcodeOfWhereYouEatYoFoodsInput"></input>
-      <button id="yelpSearchButton" onClick={queryYelpAPI}> Search for restaurants </button>
-      <div id="searchContainer">
-        {searchResultComponents}
-      </div>
+    <ApolloConsumer>
+      {client => (
+        <div>
+          <h1> Search</h1>
+          Restaurant Name: <input id="whereYouAteYoFoodsInput" onChange={(e) => setRestName(e.target.value)}></input>
+          Zipcode: <input id="zipcodeOfWhereYouEatYoFoodsInput" onChange={(e) => setZipCode(e.target.value)}></input>
 
-    </div>
-  );
+          <button
+            id="yelpSearchButton"
+            onClick={async () => {
+              const { data } = await client.query({
+                query: query1,
+                variables: { name: restName, zipcode: parseInt(zipcode) }
+              });
+              setRestaurantList(data.yelp);
+              index.addObjects(data.yelp, (err) => {
+                if (err) return console.error(err)
+              })
+            }}>
+            Search for restaurants
+          </button>
+
+          <div id="searchContainer">
+            {searchResultComponents}
+          </div>
+
+          <hr />
+
+          <div>
+            <h2>recently viewed</h2>
+            <InstantSearch indexName="yelp" searchClient={searchClient}>
+              <div>
+                <SearchBox />
+                <Hits hitComponent={Hit} />
+              </div>
+            </InstantSearch>
+          </div>
+
+        </div>
+      )}
+    </ApolloConsumer>
+  )
 };
 
-export default SearchContainer;
+export default compose(
+  graphql(AddRestaurantMutation, { name: 'AddRestaurantMutation' })
+)(SearchContainer);
