@@ -46,6 +46,11 @@ article svg {
   margin-bottom: 3px;
 }
 
+article svg:last-child {
+  margin-left: auto;
+  margin-top: 0.9em;
+}
+
 /* article svg:last-of-type {
   margin-left: auto;
 } */
@@ -56,7 +61,7 @@ article svg {
   border: 1px solid black;
   padding: 0 10px 10px 10px; 
   margin: 10px;
-  background-color:GAINSBORO;
+  background-color:gainsboro;
 }
 
 .searchResult h4{
