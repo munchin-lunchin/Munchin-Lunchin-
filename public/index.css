@@ -49,6 +49,15 @@ article svg {
 article svg:last-child {
   margin-left: auto;
   margin-top: 0.9em;
+  transition: all 0.2s ease-in-out;
+}
+
+article svg:last-child:hover {
+  cursor: pointer;
+}
+
+article svg:last-child:active {
+  transform: scale(0.95);
 }
 
 /* article svg:last-of-type {

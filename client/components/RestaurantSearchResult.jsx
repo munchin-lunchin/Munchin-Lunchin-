@@ -34,7 +34,7 @@ const RestaurantSearchResult = (props) => {
         <Address>{props.data.location.formatted_address}</Address>
       </LocationContainer>
     </section>
-    <svg width="35px" height="31px" viewBox="0 0 35 31">
+    <svg onClick={() => { props.likeRestaurant(props.data) }} width="35px" height="31px" viewBox="0 0 35 31">
       <g id="Main-App" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Desktop" transform="translate(-837.000000, -348.000000)" fill="#F57E7E" fill-rule="nonzero">
           <g id="heartempty" transform="translate(837.000000, 348.000000)">
