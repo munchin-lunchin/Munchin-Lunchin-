@@ -2,6 +2,7 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { graphql, compose, ApolloConsumer } from 'react-apollo';
 import { joesFrontEndCookieParser } from '../services/authenticate';
+import { exGetLikes } from './../containers/HistoryContainer';
 
 
 const myCookies = joesFrontEndCookieParser(document.cookie);
@@ -36,7 +37,10 @@ const AddRestaurantMutation = gql`
   }
 `
 
+
+
 const RestaurantSearchResultComponent = (props) => {
+
   props.data.user_id = parseInt(myUserId);
   return (
     <div className="searchResult">
@@ -47,8 +51,9 @@ const RestaurantSearchResultComponent = (props) => {
       <h6>Review count: {props.data.review_count}</h6>
       <button onClick={() => {
         props.AddRestaurantMutation({
-          variables: props.data
-        }, console.log('all done now!'));
+          variables: props.data,
+          // refetch: [{ query: getLikesQuery }]
+        }, location.reload());
       }}>
       Like
       </button>
