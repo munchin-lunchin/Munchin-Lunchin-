@@ -48,7 +48,7 @@ dbController.addRestaurant = (req, res, next) => {
     })
     .catch((err) => {
       console.log("error trying to add to database", err);
-      res.status(400).send(err)
+      res.status(500).send(err)
     });
 }
 
@@ -66,7 +66,7 @@ dbController.addToLikeTable = (req, res) => {
     })
     .catch(err => {
       console.log('error trying to add to likes tables', err);
-      res.status(400).send(err)
+      res.status(500).send(err)
     });
 }
 
