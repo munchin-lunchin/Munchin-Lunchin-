@@ -4,18 +4,20 @@ import LocationContainer from '../containers/LocationContainer';
 // import Icon from '../components/Icon';
 import Address from '../components/Address';
 import Name from '../components/Name';
+import { removeClientSetsFromDocument } from 'apollo-utilities';
 
 const RestaurantSearchResult = (props) => {
 
   return (
   <article style={{
     display: `flex`,
+    flexDirection: `column`,
     borderBottom: `1px solid #F1ECE6`,
-    padding: `0.5em 1em 0.75em 1em;`,
+    padding: `0.5em 1em 0.75em 1em`,
   }}>
     <Name>{props.data.name}</Name>
     <LocationContainer>
-    <svg width="33px" height="33px" viewBox="0 0 33 33" >
+    <svg width="24px" height="24px" viewBox="0 0 33 33" >
         <defs>
           <linearGradient x1="13.6037069%" y1="-11.8138602%" x2="88.2868611%" y2="136.109501%" id="linearGradient-1">
             <stop stop-color="#FCDFBE" offset="0%"></stop>
@@ -28,7 +30,9 @@ const RestaurantSearchResult = (props) => {
           </g>
         </g>
       </svg>
-      <Address>{props.data.location.display_address[0]}</Address>
+      <Address dangerouslySetInnerHTML={{__html: `${props.data.location.display_address[0]}
+      <br/>${props.data.location.display_address[1]}`}} />
+      {/* </Address> */}
     </LocationContainer>
   </article>
     // <div className="searchResult">

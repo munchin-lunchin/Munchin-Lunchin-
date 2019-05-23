@@ -33,11 +33,12 @@ body {
 }
 
 #searchContainer {
-  display: grid;
-  grid-template-columns: 30% 30% 30%;
-  margin-right: 50px;
-  grid-column-gap: 25px;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+}
+
+article svg {
+  margin-bottom: 3px;
 }
 
 .searchResult {

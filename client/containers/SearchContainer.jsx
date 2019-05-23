@@ -37,7 +37,6 @@ const SearchContainer = () => {
   };
 
   const searchResultComponents = [];
-  console.log(restaurantList)
   for (const restaurant of restaurantList) {
     searchResultComponents.push(<RestaurantSearchResult key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
   };
