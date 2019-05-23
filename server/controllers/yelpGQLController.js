@@ -48,6 +48,7 @@ yelpGQLController.searchYelpGQL = (req, res) => {
   })
     .then(res => res.json())
     .then((data) => {
+      dev
       if (data.data.search === null) return res.status(404).send();
       return res.send(data.data.search.business)
     })
