@@ -29,9 +29,8 @@ class App extends Component {
             <Route
               path="/main"
               render={() => (
-                isAuthenticated() ?
+                true ?
                   (<MainContainer />) :
-                  <HeaderComponent />
                   (<Redirect to="/" />)
               )} />
             <Route exact path='/' component={LoginContainer} />
