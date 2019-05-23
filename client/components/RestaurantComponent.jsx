@@ -1,30 +1,30 @@
 import React from 'react';
 
-function RestaurantComponent ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation, getLikesQuery, userId }) {
- return (
-  <div className='history'>
-    <strong>Name: </strong>{name}
-    <br/>
-    <strong>Rating: </strong>{rating}
-    <br/>
-    <strong>Review Count: </strong>{reviewCount}
-    <br/>
-    <strong>Price: </strong>{price}
-    <br/>
-    <strong>Address: </strong>{displayAddress}
-    <button onClick={() => {
-      console.log('Getlikesquery is', getLikesQuery);
-      deleteLikeMutation({
-        variables: {
-          user_id: parseInt(userId),
-          rest_id: parseInt(_id)
-        },
-        refetchQueries: [{ query: getLikesQuery }]
-      });
-    }
-    }>Delete</button>
-  </div>
- )
+const RestaurantComponent  = ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation, getLikesQuery, userId, longitude, latitude }) => {
+  return (
+    <article>
+      <header>
+        <CardName>{name}</CardName>
+        <svg onClick={() => {
+            console.log('Getlikesquery is', getLikesQuery);
+            deleteLikeMutation({
+              variables: {
+                user_id: parseInt(userId),
+                rest_id: parseInt(_id)
+              },
+              refetchQueries: [{ query: getLikesQuery }]
+            });
+          }
+          }></svg>
+      </header>
+      <section>
+        <Price price={price} />
+        <Rating rating={rating} />
+        <Status isOpen={true} />
+      </section>
+      <Map coordinates={{ 'longitude': longitude, 'latitude': latitude }} />
+    </article>
+   );
 }
 
 export default RestaurantComponent; 
