@@ -19,7 +19,7 @@ const searchClient = algoliasearch('54V98YN658', '488d342c46cad2e1015749231a63ea
 const index = client.initIndex('yelp')
 
 const SearchRestaurantsQuery = gql`
-  query yelp(
+  query yelp( 
         $name: String!,
         $zipcode: Int!
       ){
@@ -38,34 +38,6 @@ const SearchRestaurantsQuery = gql`
   }`;
 
 const query1 = SearchRestaurantsQuery;
-
-const AddRestaurantMutation = gql`
-  mutation {
-    addRestaurant(
-        rating: $rating,
-        review_count: $review_count,
-        yelp_id: $yelp_id,
-        name: $name,
-        display_address: $display_address,
-        image_url: $image_url,
-        url: $url,
-        price: $price,
-        latitude: $latitude,
-        longitude: $longitude
-      ) {
-      rating
-      review_count
-      yelp_id
-      name
-      display_address
-      image_url
-      url
-      price
-      latitude
-      longitude
-    }
-  }
-`
 
 const SearchContainer = () => {
   const [restaurantList, setRestaurantList] = useState([]);
@@ -113,6 +85,20 @@ const SearchContainer = () => {
           <hr />
 
           <div>
+            <h1> Search</h1>
+            Restaurant Name: <input id="whereYouAteYoFoodsInput" onChange={(e) => setRestName(e.target.value)}></input>
+            Zipcode: <input id="zipcodeOfWhereYouEatYoFoodsInput" onChange={(e) => setZipCode(e.target.value)}></input>
+            <button id="yelpSearchButton" onClick={ async () => {
+                const { data } = await client.query({
+                  query: query1,
+                  variables: { name: restName, zipcode: parseInt(zipcode) }
+                });
+                setRestaurantList(data.yelp);
+                console.log('data is ', data.yelp);
+              }}> Search for restaurants </button>
+            <div id="searchContainer">
+              {searchResultComponents}
+            </div>
             <h2>recently viewed</h2>
             <InstantSearch indexName="yelp" searchClient={searchClient}>
               <div>
@@ -128,6 +114,4 @@ const SearchContainer = () => {
   )
 };
 
-export default compose(
-  graphql(AddRestaurantMutation, { name: 'AddRestaurantMutation' })
-)(SearchContainer);
+export default SearchContainer;

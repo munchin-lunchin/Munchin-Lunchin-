@@ -12,6 +12,8 @@ const yelp = require('yelp-fusion');
 const pool = require('../database/psqlDb.js');
 const client = yelp.client(process.env.YELP_API_KEY);
 
+
+
 /*
 Table Schema:
 1. User Table:
@@ -174,8 +176,6 @@ const Query = new GraphQLObjectType({
               queryResult.push(restaurant)
 
             }
-            console.log(result.jsonBody.businesses)
-            // console.log('result is ', queryResult);
             return queryResult;
           })
           .catch(e => console.error(e));
@@ -255,7 +255,7 @@ const Mutation = new GraphQLObjectType({
     addRestaurant: {
       type: RestaurantType,
       args: {
-        rating: { type: GraphQLInt },
+        rating: { type: GraphQLFloat },
         review_count: { type: GraphQLInt },
         yelp_id: { type: GraphQLString },
         name: { type: GraphQLString },
@@ -264,7 +264,8 @@ const Mutation = new GraphQLObjectType({
         url: { type: GraphQLString },
         price: { type: GraphQLString },
         latitude: { type: GraphQLFloat },
-        longitude: { type: GraphQLFloat }
+        longitude: { type: GraphQLFloat },
+        user_id: { type: GraphQLInt }
       },
       resolve(parent, args) {
         const {
@@ -277,9 +278,10 @@ const Mutation = new GraphQLObjectType({
           url,
           price,
           latitude,
-          longitude
+          longitude,
+          user_id
         } = args;
-
+        console.log(' in the resolve!! ', user_id, args)
         const insertRestaurant = {
           text: `
             INSERT INTO restaurants (
@@ -309,9 +311,14 @@ const Mutation = new GraphQLObjectType({
           ]
         };
 
-        return pool
+       return pool
           .query(insertRestaurant)
-          .then(restaurant => restaurant.rows[0])
+          .then(restaurant => {
+            return pool
+              .query(`INSERT INTO likes (user_id, rest_id) VALUES(${user_id}, ${restaurant.rows[0]._id});`)
+              .then(result => result.rows[0])
+              .catch(err => console.log('error!!', err))
+          })
           .catch(err => console.error('Error during addRestaurant GraphQL mutation\n', err));
       }
     },
