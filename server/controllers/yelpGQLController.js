@@ -3,15 +3,9 @@ const fetch = require('node-fetch');
 const searchLimit = 18;
 
 const yelpGQLController = {};
-<<<<<<< HEAD
-yelpGQLController.searchYelpGQL = (req, res) => {
-  const { name, zip } = req.params;
-  // console.log(req.params);
-=======
 
 yelpGQLController.searchYelpGQL = (req, res) => {
   const { name, zip } = req.params;
->>>>>>> dev
   if (!name || !zip) res.json({});
 
   const searchInput = `{
