@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { verifyUser } = require('./controllers/userController');
 const { setCookie } = require('./controllers/cookieController');
-const { searchYelp } = require('./controllers/yelpController');
 const { searchYelpGQL } = require('./controllers/yelpGQLController');
 const { addRestaurant, addToLikeTable, searchForRestaurant } = require('./controllers/dbController');
 
