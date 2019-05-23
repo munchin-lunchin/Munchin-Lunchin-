@@ -1,3 +1,8 @@
+// CONNECTS TO YELP RESTFUL API
+// CONVERTING TO YELP_GRAPH_QL
+
+
+
 const yelp = require('yelp-fusion');
 const APIKey = process.env.YELP_API_Key;
 const client = yelp.client(APIKey);
