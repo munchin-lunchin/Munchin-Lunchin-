@@ -5,8 +5,9 @@ const RestaurantSearchResultComponent = ({ data, addRestaurantMutation}) => {
   return (
     <div className="searchResult">
       <h4>{data.name}</h4>
-      {/* <h6>{props.data.location.display_address[0]}<br />
-        {props.data.location.display_address[1]}</h6> */}
+      <h6>Address: {data.display_address}</h6>
+      <h6>Price: {data.price}</h6>
+      <h6>Rating: {data.rating}</h6>
       <button onClick={() => {
         addRestaurantMutation({
           variables: data
