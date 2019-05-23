@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //route to yelp API
-app.get('/yelp', searchYelpGQL);
+app.post('/yelp', searchYelpGQL);
 
 //route to add liked restaurant
 app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
@@ -47,7 +47,7 @@ app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
 app.post('/login', verifyUser, setCookie);
 
 //added a catch all URL endpoint to be able to render the main page
-app.get('/*' ,(req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(homeURL)
 })
 
