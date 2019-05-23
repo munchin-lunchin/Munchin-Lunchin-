@@ -49,3 +49,5 @@ app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
 app.post('/login', verifyUser, setCookie);
 
 app.listen(3000, () => 'Listening on port 3000');
+
+module.exports = app;

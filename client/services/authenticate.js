@@ -1,7 +1,7 @@
 const authenticate = {};
 
 // cookies look like this 'UserId=hello; timeout=hello'
-authenticate.joesFrontEndCookieParser = function (str) {
+authenticate.cookieParser = function (str) {
   str = str.split('; ');
   var result = {};
   for (var i = 0; i < str.length; i++) {
@@ -13,7 +13,7 @@ authenticate.joesFrontEndCookieParser = function (str) {
 
 authenticate.isAuthenticated = function () {
   const cookiesStr = document.cookie;
-  const cookiesObj = authenticate.joesFrontEndCookieParser(cookiesStr);
+  const cookiesObj = authenticate.cookieParser(cookiesStr);
   if (cookiesObj.userId) return true;
   return false;
 }
