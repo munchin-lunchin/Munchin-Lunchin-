@@ -46,4 +46,9 @@ app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
 
 app.post('/login', verifyUser, setCookie);
 
+//added a catch all URL endpoint to be able to render the main page
+app.get('/*' ,(req, res) => {
+  res.sendFile(homeURL)
+})
+
 app.listen(3000, () => 'Listening on port 3000');
