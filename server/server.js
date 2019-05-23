@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //route to yelp API
-app.get('/yelp/restaurantName/:name/restaurantZip/:zip', searchYelpGQL);
+app.get('/yelp', searchYelpGQL);
 
 //route to add liked restaurant
 app.post('/likes', searchForRestaurant, addRestaurant, addToLikeTable);
