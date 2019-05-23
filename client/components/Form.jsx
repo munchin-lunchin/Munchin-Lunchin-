@@ -35,7 +35,7 @@ const Form = (props) => {
       console.log('Received a response from the server re: authentication:')
       if (res.authenticated) {
         console.log('The server authenticated the user!');
-        setRedirect(res2.authenticated);
+        props.setRedirect(res.authenticated);
       } else {
           console.log('User not authenticated.')
       }

@@ -17,9 +17,10 @@ function LoginContainer() {
     <Main>
       <FormContainer>
         <Logo>Lunchin</Logo>
-        <StyledForm id="login" />
+        <StyledForm id="login" setRedirect={setRedirect}/>
       </FormContainer>
       <HeroImage />
+      {redirect && <Redirect to= '/main' />}
     </Main>
   )
 }
