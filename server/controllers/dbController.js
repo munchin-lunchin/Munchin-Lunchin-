@@ -3,7 +3,6 @@ const pool = require('../database/psqlDb.js');
 const dbController = {};
 
 dbController.searchForRestaurant = (req, res, next) => {
-  console.log(req.body);
   const { url } = req.body.data;
   const find = `SELECT _id FROM restaurant WHERE URL='${url}'`
   pool.query(find)
@@ -39,24 +38,24 @@ dbController.addRestaurant = (req, res, next) => {
     values: [rating, review_count, id, name, displayAddress, image_url, url, price, latitude, longitude]
   }
 
-  console.log(add);
-
   //add query to database
   pool.query(add)
     .then(result => {
-      console.log('result : ', result);
+      // console.log('result pool.query(add): ', result);
       console.log(`successfully added ${name} to db`);
       res.locals.rest_id = result.rows[0]._id;
       return next();
     })
     .catch((err) => {
-      console.log("error after liking", err);
+      console.log("error trying to add to database", err);
       res.status(400).send(err)
     });
 }
 
 dbController.addToLikeTable = (req, res) => {
   const userID = req.cookies.userId;
+  //use this for testing - this is the userID the client gets back from the cookie
+  // const userID = 1;
   const restID = res.locals.rest_id;
   const addLike = `INSERT INTO likes (user_id, rest_id) VALUES ('${userID}', '${restID}')`
 
@@ -66,7 +65,7 @@ dbController.addToLikeTable = (req, res) => {
       return res.send(req.body);
     })
     .catch(err => {
-      console.log(err);
+      console.log('error trying to add to likes tables', err);
       res.status(400).send(err)
     });
 }
