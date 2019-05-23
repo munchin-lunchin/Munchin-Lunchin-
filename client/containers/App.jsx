@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import LoginContainer from './LoginContainer';
 import MainContainer from './MainContainer';
-import HeaderComponent from './../components/HeaderComponent';
-import { HashRouter as Router, Route, Redirect } from "react-router-dom";
-import { isAuthenticated } from "./../services/authenticate";
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
-
-//Setting up apollo client  - connection to graphql endpoint on server
-const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql'
-})
-
+// import HeaderComponent from './../components/HeaderComponent';
+import { HashRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+// import { isAuthenticated } from "./../services/authenticate";
 
 class App extends Component {
   constructor(props) {
@@ -20,27 +12,20 @@ class App extends Component {
 
   render() {
     return (
-      //Apollo wrapper injects data from the server into the application
-      <ApolloProvider client={client}>
-        <div>
-          {/* For our React Router, this is the 'Hash History' approach from the excellent
-              Stack Overflow here: https://stackoverflow.com/questions/27928372/ */}
-          <Router >
-            <Route
+      <div>
+          <Route
               path="/main"
               render={() => (
                 // Set authenticated to true for testing purposes. Change to isAuthenticated() for production
-                true ?
+                isAuthenticated() ?
                   (<MainContainer />) :
-                  <HeaderComponent />
                   (<Redirect to="/" />)
               )} />
-            <Route exact path='/' component={LoginContainer} />
-          </Router>
-        </div>
-      </ApolloProvider>
+          <Route exact path="/" component={LoginContainer} />
+      </div>
     );
   }
 }
 
 export default App;
+
