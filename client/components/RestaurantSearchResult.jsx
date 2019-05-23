@@ -18,7 +18,7 @@ const RestaurantSearchResult = (props) => {
     <section class="restaurant-info">
       <Name>{props.data.name}</Name>
       <LocationContainer>
-      <svg width="24px" height="24px" viewBox="0 0 33 33" >
+      <svg width="18px" height="18px" viewBox="0 0 33 33" >
           <defs>
             <linearGradient x1="13.6037069%" y1="-11.8138602%" x2="88.2868611%" y2="136.109501%" id="linearGradient-1">
               <stop stop-color="#FCDFBE" offset="0%"></stop>
@@ -31,8 +31,7 @@ const RestaurantSearchResult = (props) => {
             </g>
           </g>
         </svg>
-        <Address dangerouslySetInnerHTML={{__html: `${props.data.location.display_address[0]}
-        <br/>${props.data.location.display_address[1]}`}} />
+        <Address>{props.data.location.formatted_address}</Address>
       </LocationContainer>
     </section>
     <svg width="35px" height="31px" viewBox="0 0 35 31">
