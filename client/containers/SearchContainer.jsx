@@ -12,13 +12,8 @@ const SearchContainer = () => {
 
     fetch(`http://localhost:3000/yelp/restaurantName/${data.name}/restaurantZip/${data.zip}`,
       { method: 'GET' })
-      .then(res => {
-        // console.log('res', res);
-        return res.json()
-      }
-      ).then(res => {
-        setRestaurantList(res);
-      });
+      .then(res => res.json())
+      .then(res => setRestaurantList(res));
   };
 
   function likeRestaurant(data) {
