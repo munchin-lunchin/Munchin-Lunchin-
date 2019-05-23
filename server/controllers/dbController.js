@@ -3,7 +3,8 @@ const pool = require('../database/psqlDb.js');
 const dbController = {};
 
 dbController.searchForRestaurant = (req, res, next) => {
-  const { url } = req.body;
+  console.log(req.body);
+  const { url } = req.body.data;
   const find = `SELECT _id FROM restaurant WHERE URL='${url}'`
   pool.query(find)
     .then(result => {
@@ -24,11 +25,11 @@ dbController.searchForRestaurant = (req, res, next) => {
 }
 
 dbController.addRestaurant = (req, res, next) => {
-  if(res.locals.rest_id) return next();
-  const { id, name, rating, image_url, review_count, url, price } = req.body;
-  const { latitude, longitude } = req.body.coordinates;
-  const { display_address } = req.body.location;
-  const displayAddress = display_address.join(" ");
+  if (res.locals.rest_id) return next();
+  const { id, name, rating, review_count, url, price } = req.body.data;
+  const { latitude, longitude } = req.body.data.coordinates;
+  const image_url = req.body.data.photos[0];
+  const displayAddress = req.body.data.location.formatted_address;
 
   console.log(`adding ${name} to db! `)
 
@@ -38,6 +39,8 @@ dbController.addRestaurant = (req, res, next) => {
     values: [rating, review_count, id, name, displayAddress, image_url, url, price, latitude, longitude]
   }
 
+  console.log(add);
+
   //add query to database
   pool.query(add)
     .then(result => {
@@ -46,8 +49,8 @@ dbController.addRestaurant = (req, res, next) => {
       res.locals.rest_id = result.rows[0]._id;
       return next();
     })
-    .catch( (err) => {
-      console.log("error after liking",err);
+    .catch((err) => {
+      console.log("error after liking", err);
       res.status(400).send(err)
     });
 }
