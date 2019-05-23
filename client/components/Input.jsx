@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const Input = styled.input`
     color: #3C3832;
-    border: 1px solid #A69E91;
+    border: 1px solid; 
+    border-color: ${(props) => (props.invalidCredentials ? '#C34A43' : '#A69E91')};
     box-shadow: inset 0 1px 3px 1px rgba(0,0,0,0.15);
     border-radius: 5px;
     font-family: 'Avenir Next', 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -21,3 +22,6 @@ const Input = styled.input`
   `;
 
 export default Input;
+// color: ${props => (!props.disabled
+//   ? '#F7F3EE'
+//   : '#A69E91')};
