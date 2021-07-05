@@ -14,22 +14,38 @@ body {
   font-family: 'Baloo Bhai', cursive;
 }
 
-#loginContainer {
-  margin-top: 30px;
-  margin-left: 10px;
-  font-family: 'Montserrat', sans-serif;
-}
-
 #mainContainer {
   /* border: 1px solid red; */
-  display: grid;
-  grid-template-columns: 66% 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 30px;
   margin-bottom: 100px;
   margin-left: 10px;
   margin-right: 10px;
-  font-family: 'Montserrat', sans-serif;
 }
+
+#mainContainer div:first-child {
+  margin: 1em auto;
+  max-width: 75vw;
+}
+
+
+#mainContainer div:last-child > h2 {
+  color: #3C3832;
+  font-family: 'Avenir Next', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI'; 
+  font-size: 1.375em;
+  font-weight: 500;
+}
+
+#mainContainer div:last-child article {
+  padding: 1em;
+  border: 1px solid #C7C4C0;
+  border-radius: 3px;
+  margin: 1em 0;
+  width: 380px;
+}
+
 
 .history {
   border: 1px solid black;
@@ -39,12 +55,42 @@ body {
 }
 
 #searchContainer {
-  display: grid;
-  grid-template-columns: 30% 30% 30%;
-  margin-right: 50px;
-  grid-column-gap: 25px;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
 }
+
+article svg {
+  margin-bottom: 3px;
+}
+
+article>svg:last-child {
+  margin-left: auto;
+  margin-top: 0.9em;
+  transition: all 0.2s ease-in-out;
+}
+
+article>svg:last-child:hover {
+  cursor: pointer;
+}
+
+article>svg:last-child:active {
+  transform: scale(0.95);
+}
+
+<<<<<<< HEAD
+#MainContainer form svg {
+  margin-left: auto;
+  padding-right: 0.75em;
+}
+=======
+svg.unlike:hover {
+  cursor: pointer;
+}
+
+>>>>>>> dev
+/* article svg:last-of-type {
+  margin-left: auto;
+} */
 
 .searchResult {
   text-align: center;
@@ -52,7 +98,7 @@ body {
   border: 1px solid black;
   padding: 0 10px 10px 10px; 
   margin: 10px;
-  background-color:GAINSBORO;
+  background-color:gainsboro;
 }
 
 .searchResult h4{

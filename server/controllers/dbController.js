@@ -3,7 +3,7 @@ const pool = require('../database/psqlDb.js');
 const dbController = {};
 
 dbController.searchForRestaurant = (req, res, next) => {
-  const { url } = req.body;
+  const { url } = req.body.data;
   const find = `SELECT _id FROM restaurant WHERE URL='${url}'`
   pool.query(find)
     .then(result => {
@@ -24,11 +24,11 @@ dbController.searchForRestaurant = (req, res, next) => {
 }
 
 dbController.addRestaurant = (req, res, next) => {
-  if(res.locals.rest_id) return next();
-  const { id, name, rating, image_url, review_count, url, price } = req.body;
-  const { latitude, longitude } = req.body.coordinates;
-  const { display_address } = req.body.location;
-  const displayAddress = display_address.join(" ");
+  if (res.locals.rest_id) return next();
+  const { id, name, rating, review_count, url, price } = req.body.data;
+  const { latitude, longitude } = req.body.data.coordinates;
+  const image_url = req.body.data.photos[0];
+  const displayAddress = req.body.data.location.formatted_address;
 
   console.log(`adding ${name} to db! `)
 
@@ -41,18 +41,21 @@ dbController.addRestaurant = (req, res, next) => {
   //add query to database
   pool.query(add)
     .then(result => {
-      console.log('result : ', result);
       console.log(`successfully added ${name} to db`);
       res.locals.rest_id = result.rows[0]._id;
       return next();
     })
-    .catch(err => res.status(400).send());
+    .catch((err) => {
+      console.log("error trying to add to database", err);
+      res.status(500).send(err)
+    });
 }
 
 dbController.addToLikeTable = (req, res) => {
   const userID = req.cookies.userId;
+  //use this for testing - this is the userID the client gets back from the cookie
+  // const userID = 1;
   const restID = res.locals.rest_id;
-
   const addLike = `INSERT INTO likes (user_id, rest_id) VALUES ('${userID}', '${restID}')`
 
   pool.query(addLike)
@@ -61,8 +64,8 @@ dbController.addToLikeTable = (req, res) => {
       return res.send(req.body);
     })
     .catch(err => {
-      console.log(err);
-      res.status(400).send(err)
+      console.log('error trying to add to likes tables', err);
+      res.status(500).send(err)
     });
 }
 
