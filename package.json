@@ -38,7 +38,7 @@
     "css-loader": "^2.1.1",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "pg": "^7.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
